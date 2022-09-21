@@ -65,7 +65,7 @@ public class Parte2 {
 
 			System.out.printf(" -- INFORMACION --\n");
 			for (i = 0; i < frecuencias.length; i++) {
-				informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
+				informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(tamanioPalabra);
 				informacionFuente += informaciones[i];
 				System.out.println("La cantidad de informacion de " + combinaciones.get(i) + " es:" + informaciones[i] + " U de orden 3");
 			}
