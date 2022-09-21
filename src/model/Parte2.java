@@ -36,8 +36,7 @@ public class Parte2 {
 		// Guardo en combinaciones las combinaciones unicas
 		
 		ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
-		
-		// Guardo las Frecuencias
+
 		int[] frecuencias = new int[combinaciones.size()];
 		
 		for(i=0;i<combinaciones.size();i++) {
@@ -45,7 +44,7 @@ public class Parte2 {
 		   System.out.println("Frecuencia de "+combinaciones.get(i)+" es:"+ frecuencias[i]);
 		}
 
-		// Calculo de probabilidades
+		// Calculo de PROBABILIDADES de las palabras codigo
 
 		float [] probabilidades = new float[combinaciones.size()];
 		int frecTotal = 0;
@@ -53,13 +52,32 @@ public class Parte2 {
 		for(i = 0 ; i < frecuencias.length ; i++){
 			frecTotal += frecuencias[i];
 		}
-		System.out.printf("frecTtotal" + frecTotal);
+
+		System.out.printf(" -- PROBABILIDADES --\n");
 		for (i = 0; i < frecuencias.length ; i++){
 			probabilidades[i] = ((float)frecuencias[i]) / frecTotal;
+			System.out.println("Probabilidad de "+combinaciones.get(i)+" es:"+ probabilidades[i]);
 		}
 
-		// Calculo de entropia
-		
+		// Calculo de INFORMACIONES
+
+		double[] informaciones = new double[combinaciones.size()];
+
+		System.out.printf(" -- INFORMACION --\n");
+		for (i = 0; i < frecuencias.length ; i++){
+			informaciones[i] = Math.log10(1 / probabilidades[i]);
+			System.out.println("Informacion de "+ combinaciones.get(i)+" es:"+ informaciones[i]);
+		}
+		// Calculo de ENTROPIA
+
+		double entropia = 0;
+
+		System.out.printf(" -- ENTROPIA --\n");
+		for (i = 0; i < frecuencias.length ; i++){
+			entropia += informaciones[i]*probabilidades[i];
+		}
+
+		System.out.println("Entropia es " + entropia);
 		///Cual seria la definicion de entropia en este caso?
 		///Cual es la probablidad de cada simbolo? Lo tenemos que calcular?
 		}
