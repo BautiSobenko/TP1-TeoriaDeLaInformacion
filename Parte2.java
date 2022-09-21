@@ -42,23 +42,10 @@ public class Parte2 {
 		
 		for(i=0;i<combinaciones.size();i++) {
 		   frecuencias[i] = Collections.frequency(listaPal,combinaciones.get(i));
-		   System.out.println("Frecuencia de "+combinaciones.get(i)+" es:"+ frecuencias[i]);
+			System.out.printf(combinaciones.get(i) + 'frecuencia de la palabra' + frecuencias[i]);
+		   // System.out.println("Frecuencia de "+combinaciones.get(i)+" es:"+Collections.frequency(listaPal,combinaciones.get(i)));
 		}
-
-		// Calculo de probabilidades
-
-		float [] probabilidades = new float[combinaciones.size()];
-		int frecTotal = 0;
-
-		for(i = 0 ; i < frecuencias.length ; i++){
-			frecTotal += frecuencias[i];
-		}
-		System.out.printf("frecTtotal" + frecTotal);
-		for (i = 0; i < frecuencias.length ; i++){
-			probabilidades[i] = ((float)frecuencias[i]) / frecTotal;
-		}
-
-		// Calculo de entropia
+			System.out.printf(f);
 		
 		///Cual seria la definicion de entropia en este caso?
 		///Cual es la probablidad de cada simbolo? Lo tenemos que calcular?
