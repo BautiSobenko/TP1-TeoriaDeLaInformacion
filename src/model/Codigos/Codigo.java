@@ -1,42 +1,69 @@
 package model.Codigos;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Codigo {
 
-    ArrayList<String> combinaciones = new ArrayList<String>();
-    ArrayList<Integer> frecuencias = new ArrayList<Integer>();
-    ArrayList<Integer> probabilidades = new ArrayList<>();
+    ArrayList<String> codigo;
 
-    // @param palabrasCodigo: paso array con todas las palabras REPETIDAS dividida en x caracteres
-    // calcula la cantidad de frecuencias por palabra y las setea en frecuencias
-    // agrega a combinaciones las palabras unicas.
-
-    public void calculoFrecYCombinaciones( ArrayList<String> listaPalabras){
-
+    public Codigo(ArrayList<String> codigo) {
+        this.codigo = codigo;
     }
 
-    public ArrayList<String> getCombinaciones() {
-        return combinaciones;
+
+    public boolean esCodigoBloque(){
+        // verifo que cada codigo dentro del array sea del mismo tamano
+        // si cumple la condicion devuelvo true.
+
+        int length = this.codigo.get(0).length();
+        for (String s : this.codigo) {
+            if (length != s.length()) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void setCombinaciones(ArrayList<String> codigo) {
-        this.combinaciones = codigo;
+    public boolean esNoSingular() {
+        // Verifico el tamano del tree set con el codigo original
+        // como en el tree set no puede haber elementos repetidos
+        // si el tamanio es igual es pq es no singular
+
+        int i = 0, length = this.codigo.size();
+        TreeSet<String> noRepetidos = new TreeSet<String>(this.codigo);
+
+        return noRepetidos.size() == this.codigo.size();
     }
 
-    public ArrayList<Integer> getFrecuencias() {
-        return frecuencias;
+    public boolean esUnivocamenteDecodificable(){
+        return this.esCodigoBloque() && this.esNoSingular();
     }
 
-    public void setFrecuencias(ArrayList<Integer> frecuencias) {
-        this.frecuencias = frecuencias;
+    public boolean esInstantaneo() {
+
+        for (String palabra : this.codigo) {
+            ArrayList<String> prefijos = this.obtenerPrefijos(palabra);
+            //Chequea cada prefijo con todas las palabras
+            for (String prefijo : prefijos){
+                for (String s: this.codigo){
+                    if (s.equals(prefijo) ){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
-    public ArrayList<Integer> getProbabilidades() {
-        return probabilidades;
-    }
-
-    public void setProbabilidades(ArrayList<Integer> probabilidades) {
-        this.probabilidades = probabilidades;
+    public ArrayList<String> obtenerPrefijos( String palabra){
+        ArrayList<String> prefijos = new ArrayList<>();
+        for (int i = 0; i < palabra.length(); i++) {
+            prefijos.add(palabra.substring(0, i + 1));
+        }
+        // Elimino el ultimo elemento que seria la palabra completa.
+        prefijos.remove(prefijos.size()-1);
+        return prefijos;
     }
 }

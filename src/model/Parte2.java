@@ -1,5 +1,7 @@
 package model;
 
+import model.Codigos.Codigo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -36,6 +38,11 @@ public class Parte2 {
 
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
 
+			Codigo codigo = new Codigo(combinaciones);
+			System.out.printf("\nEs codigo bloque " + codigo.esCodigoBloque());
+			System.out.printf("\nEs codigo no singular " + codigo.esNoSingular());
+			System.out.printf("\nEs univocamente decodificable " + codigo.esUnivocamenteDecodificable());
+			System.out.printf("\nEs instantaneo \n" + codigo.esInstantaneo());
 			int[] frecuencias = new int[combinaciones.size()];
 
 			for (i = 0; i < combinaciones.size(); i++) {
