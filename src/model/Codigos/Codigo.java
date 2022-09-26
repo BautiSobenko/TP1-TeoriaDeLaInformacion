@@ -57,7 +57,7 @@ public class Codigo {
         return true;
     }
 
-    public ArrayList<String> obtenerPrefijos( String palabra){
+    private ArrayList<String> obtenerPrefijos( String palabra){
         ArrayList<String> prefijos = new ArrayList<>();
         for (int i = 0; i < palabra.length(); i++) {
             prefijos.add(palabra.substring(0, i + 1));
