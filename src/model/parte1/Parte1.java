@@ -1,11 +1,11 @@
-package model;
+package model.parte1;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import Jama.Matrix;
 
-public class Main {
+public class Parte1 {
 
 	public static void main(String[] args) {
 
@@ -16,9 +16,9 @@ public class Main {
             String datos = archivo.readLine();
             int len = datos.length();
             
-            int[][] matrizApariciones = new int[3][3]; //Matriz de apariciones si el simbolo previo a X es A | B | C
-            int[]   aparicionesTotales = new int[3];   //Apariciones totales por simbolo
-            double[][] matrizEstados = new double[3][3]; //Matriz de transicion de estados (probabilidades)
+            int[][] matrizApariciones = new int[3][3];    //Matriz de apariciones si el simbolo previo a X es A | B | C
+            int[]  aparicionesTotales = new int[3];       //Apariciones totales por simbolo
+            double[][]  matrizEstados = new double[3][3]; //Matriz de transicion de estados (probabilidades)
 
 			//Inicializacion de contadores
             for(int i=0 ; i<3 ; i++) {
@@ -42,10 +42,10 @@ public class Main {
             
             //Comenzamos con calculo de vector estacionario
 
-			// a*(m[0][0]-1) + b*m[0][1] + c*m[0][2] = 0
-			// a*m[1][0] + b*(m[1][1]-1) + c*m[1][2] = 0
-			// a*m[2][0] + b*m[2][1] + c*(m[2][2]-1) = 0
-			// a         + b         + c         = 1
+			// a*(m[0][0]-1) +    b*m[0][1]     +    c*m[0][2]     =    0
+			// a*m[1][0]     +    b*(m[1][1]-1) +    c*m[1][2]     =    0
+			// a*m[2][0]     +    b*m[2][1]     +    c*(m[2][2]-1) =    0
+			// a             +    b             +    c             =    1
 
 			double[][] sistemaEc = new double[4][3]; //Inicializo el sistema de ec
             double[]   resultados = new double[4];
@@ -93,7 +93,7 @@ public class Main {
 			System.out.println("A = " + ans.get(0, 0));
             System.out.println("B = " + ans.get(1, 0));
             System.out.println("C = " + ans.get(2, 0));
-            
+
 		}
 		catch(Exception e){
 			e.printStackTrace();

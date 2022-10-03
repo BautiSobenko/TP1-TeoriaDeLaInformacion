@@ -1,6 +1,5 @@
-package model.Codigos;
+package model.parte2.codigos;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
