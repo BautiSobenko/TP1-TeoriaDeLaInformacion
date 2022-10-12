@@ -22,7 +22,7 @@ public class Parte2 {
 			String datos = archivo.readLine();
 			int len = datos.length();
 
-			int tamanioPalabra = 3;
+			int tamanioPalabra = 7;
 			int i = 0;
 			ArrayList<String> listaPal = new ArrayList<String>(); //Guardo todas las Strings formadas
 			String formada;
@@ -48,7 +48,6 @@ public class Parte2 {
 
 			for (i = 0; i < combinaciones.size(); i++) {
 				frecuencias[i] = Collections.frequency(listaPal, combinaciones.get(i));
-				System.out.println("Frecuencia de " + combinaciones.get(i) + " es:" + frecuencias[i]);
 			}
 
 			//Calculo de PROBABILIDADES de las palabras codigo
@@ -96,6 +95,12 @@ public class Parte2 {
 				System.out.println("El codigo no es compacto");
 			}
 
+			// Rendimiento y redundancia
+
+			double rend = rendimiento(entropia,longMedia);
+			double redundancia = redundancia(rend);
+			System.out.printf("El rendimiento es" + rend + "\nLa redundancia es" + redundancia);
+
 			Huffman huffman = new Huffman(listaPal);
 			huffman.encode();
 
@@ -118,7 +123,6 @@ public class Parte2 {
 		for (int i = 0; i < probabilidades.length; i++) {
 			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(tamanioPalabra);
 			informacionFuente += informaciones[i];
-			System.out.println("La cantidad de informacion de " + combinaciones.get(i) + " es:" + informaciones[i] + " U de orden 3");
 		}
 		System.out.println("La cantidad de informacion del codigo es: " + informacionFuente);
 
@@ -144,6 +148,14 @@ public class Parte2 {
 		}
 
 		return sum * tamanioPalabra;
+	}
+
+	public static double rendimiento(double entropia, double longitudMedia){
+			return entropia / longitudMedia;
+	}
+
+	public static double redundancia(double rendimiento){
+		return 1 - rendimiento;
 	}
 
 
