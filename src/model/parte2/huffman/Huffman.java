@@ -58,7 +58,7 @@ public class Huffman {
     public void escribeArchivo( String nombreArchivo ){
 
         try{
-            FileWriter fichero = new FileWriter(nombreArchivo);
+            FileWriter fichero = new FileWriter("./resultados/"+nombreArchivo);
             PrintWriter pw = new PrintWriter(fichero);
 
             pw.print(this.getCodigo());

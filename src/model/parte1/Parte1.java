@@ -3,7 +3,6 @@ package model.parte1;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import Jama.Matrix;
 
 public class Parte1 {
 
@@ -47,52 +46,54 @@ public class Parte1 {
 			// a*m[2][0]     +    b*m[2][1]     +    c*(m[2][2]-1) =    0
 			// a             +    b             +    c             =    1
 
-			double[][] sistemaEc = new double[4][3]; //Inicializo el sistema de ec
-            double[]   resultados = new double[4];
+			double[][] matrizCoef = new double[3][3]; //Inicializo el sistema de ec
+            double[]   resultados = new double[3];
             
-            for(int i=0 ; i<3 ; i++) {
-            	resultados[i] = 0;
-            	sistemaEc[3][i] = 1; // a + b + c -> { 1, 1, 1 } , Ultima fila con 1's
-            }
-            resultados[3] = 1;
+            // Creacion de Matriz de Coeficientes
 
-			for(int i=0 ; i<3 ; i++) {
-            	for(int j=0 ; j<3 ; j++) {
-            		sistemaEc[i][j] = matrizEstados[i][j];
-            		if(i == j) //Diagonal
-            			sistemaEc[i][j] -= 1.00;
-            	}
-            }
+			int cantVar = 3;
 
-			System.out.println("Matriz del sistema");
-			for(int x=0 ; x < sistemaEc.length ; x++) {
+			for(int j = 0 ; j < cantVar ; j++) {
+            	matrizCoef[0][j] = 1.; // a + b + c + ... + n
+            }
+            for(int i = 1 ; i < cantVar ; i++){
+				for(int j = 0 ; j < cantVar ; j++) {
+					matrizCoef[i][j] = matrizEstados[i][j];
+					if(i == j) //Diagonal
+						matrizCoef[i][j] -= 1.00;
+				}
+			}
+
+			System.out.println("Matriz de Coeficientes del sistema");
+			for(int x=0 ; x < matrizCoef.length ; x++) {
             	  System.out.print("|");
-            	  for (int y=0 ; y < sistemaEc[x].length ; y++) {
-            	    System.out.print (sistemaEc[x][y]);
-            	    if (y != sistemaEc[x].length-1) System.out.print("\t");
+            	  for (int y=0 ; y < matrizCoef[x].length ; y++) {
+            	    System.out.printf("%.3f", matrizCoef[x][y]);
+            	    if (y != matrizCoef[x].length-1) System.out.print("\t");
             	  }
             	  System.out.println("|");
 			}
 			System.out.println();
 
-			System.out.println("Vector terminos independientes");
+			// Creacion de Vector Resultado
+
+			resultados[0] = 1.;
+			for (int i = 1 ; i < cantVar ; i++){
+				resultados[i] = 0.;
+			}
+
+			System.out.println("Vector Resultado del sistema");
 			System.out.print("[  ");
-			for(int h=0; h<4; h++){
-				System.out.print(resultados[h] + "  ");
+			for(int h=0; h < cantVar; h++){
+				System.out.printf("%.3f  ",resultados[h]);
 			}
 			System.out.println("]\n");
 
-			//Resolucion del sistema de ecuaciones usando JAMA
+			//Resolucion del sistema utilizando Eliminacion de Gauss
 
-			Matrix var = new Matrix(sistemaEc);
-            Matrix sol = new Matrix(resultados,4);
-            
-            Matrix ans = var.solve(sol);
+			EliminacionGauss gauss = new EliminacionGauss();
 
-			System.out.println("Resultados del sistema de ecuaciones = Vector estacionario");
-			System.out.println("A = " + ans.get(0, 0));
-            System.out.println("B = " + ans.get(1, 0));
-            System.out.println("C = " + ans.get(2, 0));
+			gauss.resolver(matrizCoef,resultados);
 
 		}
 		catch(Exception e){

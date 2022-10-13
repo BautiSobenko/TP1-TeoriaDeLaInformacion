@@ -22,7 +22,7 @@ public class Parte2 {
 			String datos = archivo.readLine();
 			int len = datos.length();
 
-			int tamanioPalabra = 7;
+			int tamanioPalabra = 3;
 			int i = 0;
 			ArrayList<String> listaPal = new ArrayList<String>(); //Guardo todas las Strings formadas
 			String formada;
@@ -85,7 +85,7 @@ public class Parte2 {
 			//Longitud Media
 
 			double longMedia = calculoLongMedia(probabilidades, tamanioPalabra);
-			System.out.println("La longitud media del codigo es: " + longMedia + "U. de orden " + tamanioPalabra);
+			System.out.println("La longitud media del codigo es: " + longMedia + "U. de orden 3");
 
 			//Condicion codigo compacto
 
@@ -100,6 +100,8 @@ public class Parte2 {
 			double rend = rendimiento(entropia,longMedia);
 			double redundancia = redundancia(rend);
 			System.out.printf("El rendimiento es" + rend + "\nLa redundancia es" + redundancia);
+
+			//Codificacion Huffman
 
 			Huffman huffman = new Huffman(listaPal);
 			huffman.encode();
