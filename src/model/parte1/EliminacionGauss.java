@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class EliminacionGauss {
 
-        public void resolver(double[][] coeficientes, double[] rtados) {
+        public double[] resolver(double[][] coeficientes, double[] rtados) {
             int N = rtados.length;
 
             for (int k = 0; k < N; k++) {
@@ -48,6 +48,9 @@ public class EliminacionGauss {
             }
 
             printSolucion(solucion);
+
+            return solucion;
+
         }
 
         public void printMatrizEscalonada(double[][] A, double[] B)

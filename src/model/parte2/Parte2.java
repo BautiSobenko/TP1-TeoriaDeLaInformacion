@@ -113,9 +113,6 @@ public class Parte2 {
 
 			System.out.println("Longitud media codigo Huffman "+tamanioPalabra+": "+huffman.longMedia());
 
-			//Informacion acerca del tamaño del archivo original y de los archivos con codificacion Huffman
-			tamañosArchivos();
-
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -163,28 +160,5 @@ public class Parte2 {
 	public static double redundancia(double rendimiento){
 		return 1 - rendimiento;
 	}
-
-	public static void tamañosArchivos(){
-
-		System.out.println("\nInformacion acerca del tamaño del archivo original y de los archivos con codificacion Huffman");
-
-		File fileOriginal = new File("DatosTP1.txt");
-		double tamOriginalDatos = fileOriginal.length();
-		System.out.println("-Tamaño del archivo original: " + tamOriginalDatos + " Bytes");
-
-		File fileCompresion3 = new File("resultados/CodigoHuffman3.txt");
-		double tamCompresion3 = fileCompresion3.length();
-		System.out.println("-Tamaño del archivo con codificacion Huffman 3: " + tamCompresion3 + " Bytes");
-
-		File fileCompresion5 = new File("resultados/CodigoHuffman5.txt");
-		double tamCompresion5 = fileCompresion5.length();
-		System.out.println("-Tamaño del archivo con codificacion Huffman 5: " + tamCompresion5 + " Bytes");
-
-		File fileCompresion7= new File("resultados/CodigoHuffman7.txt");
-		double tamCompresion7 = fileCompresion7.length();
-		System.out.println("-Tamaño del archivo con codificacion Huffman 7: " + tamCompresion7 + " Bytes");
-
-	}
-
 
 }

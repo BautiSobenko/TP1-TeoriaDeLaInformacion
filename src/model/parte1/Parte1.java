@@ -31,13 +31,25 @@ public class Parte1 {
             	matrizApariciones[BuscaIndice(datos.charAt(i-1))][BuscaIndice(datos.charAt(i))] += 1;
             	aparicionesTotales[BuscaIndice(datos.charAt(i))] += 1;
 			}
-            
+
             //Calculo de probabilidades condicionales
             for(int i=0 ; i<3 ; i++) {
+				System.out.println("Apariciones totales: "+aparicionesTotales[i]);
             	for(int j=0 ; j<3 ; j++) {
             		matrizEstados[i][j] = (double) matrizApariciones[i][j] / aparicionesTotales[i];
             	}
             }
+
+			System.out.println("Matriz de Transicion de estados del sistema");
+			for(int x=0 ; x < matrizEstados.length ; x++) {
+				System.out.print("|");
+				for (int y=0 ; y < matrizEstados[x].length ; y++) {
+					System.out.printf("%.3f", matrizEstados[x][y]);
+					if (y != matrizEstados[x].length-1) System.out.print("\t");
+				}
+				System.out.println("|");
+			}
+			System.out.println();
             
             //Comenzamos con calculo de vector estacionario
 
@@ -93,7 +105,9 @@ public class Parte1 {
 
 			EliminacionGauss gauss = new EliminacionGauss();
 
-			gauss.resolver(matrizCoef,resultados);
+			double[] vectorEstacionario = gauss.resolver(matrizCoef,resultados);
+
+			System.out.println("Entropia de la fuente: " + entropia(matrizEstados, vectorEstacionario) + " unidades de orden 3");
 
 		}
 		catch(Exception e){
@@ -110,6 +124,25 @@ public class Parte1 {
 		else
 			return 2;     // posicion 2 si es C
 	}
+
+	public static double entropia(double[][] matrizEstados,double[] vectorEstacionario ) {
+
+		double entropia = 0;
+		double aux;
+		for (int i = 0; i < 3; i++) {
+			aux = 0;
+			for (int j = 0; j < 3; j++) {
+				aux += matrizEstados[j][i] * (Math.log10(1 / matrizEstados[j][i]) / Math.log10(3));
+			}
+			aux *= vectorEstacionario[i];
+			entropia += aux;
+		}
+
+		return entropia;
+
+	}
+
+
 	
 	
 
