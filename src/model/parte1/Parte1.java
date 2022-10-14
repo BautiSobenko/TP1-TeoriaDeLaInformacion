@@ -41,15 +41,7 @@ public class Parte1 {
             }
 
 			System.out.println("Matriz de Transicion de estados del sistema");
-			for(int x=0 ; x < matrizEstados.length ; x++) {
-				System.out.print("|");
-				for (int y=0 ; y < matrizEstados[x].length ; y++) {
-					System.out.printf("%.3f", matrizEstados[x][y]);
-					if (y != matrizEstados[x].length-1) System.out.print("\t");
-				}
-				System.out.println("|");
-			}
-			System.out.println();
+			printMatriz(matrizEstados);
 
 			if( isMemoriaNula(matrizEstados) )
 				System.out.println("Fuente de memoria nula\n");
@@ -63,51 +55,43 @@ public class Parte1 {
 
 					//Comenzamos con calculo de vector estacionario
 
-					// a*(m[0][0]-1) +    b*m[0][1]     +    c*m[0][2]     =    0
-					// a*m[1][0]     +    b*(m[1][1]-1) +    c*m[1][2]     =    0
-					// a*m[2][0]     +    b*m[2][1]     +    c*(m[2][2]-1) =    0
-					// a             +    b             +    c             =    1
+					// a * (m[0][0]-1) +    b * m[0][1]     +    c * m[0][2]     =    0
+					// a *  m[1][0]    +    b * (m[1][1]-1) +    c * m[1][2]     =    0
+					// a * m[2][0]     +    b * m[2][1]     +    c * (m[2][2]-1) =    0
+					// a               +    b               +    c               =    1
 
-					double[][] matrizCoef = new double[3][3]; //Inicializo el sistema de ec
-					double[]   resultados = new double[3];
+					double[][] matrizCoefSistEc = new double[3][3]; //Inicializo el sistema de ec
+					double[]   resultadosSistEc = new double[3];
 
 					// Creacion de Matriz de Coeficientes
 
 					int cantVar = 3;
 
 					for(int j = 0 ; j < cantVar ; j++) {
-						matrizCoef[0][j] = 1.; // a + b + c + ... + n
+						matrizCoefSistEc[0][j] = 1.; // a + b + c + ... + n
 					}
 					for(int i = 1 ; i < cantVar ; i++){
 						for(int j = 0 ; j < cantVar ; j++) {
-							matrizCoef[i][j] = matrizEstados[i][j];
+							matrizCoefSistEc[i][j] = matrizEstados[i][j];
 							if(i == j) //Diagonal
-								matrizCoef[i][j] -= 1.00;
+								matrizCoefSistEc[i][j] -= 1.00;
 						}
 					}
 
 					System.out.println("Matriz de Coeficientes del sistema");
-					for(int x=0 ; x < matrizCoef.length ; x++) {
-						System.out.print("|");
-						for (int y=0 ; y < matrizCoef[x].length ; y++) {
-							System.out.printf("%.3f", matrizCoef[x][y]);
-							if (y != matrizCoef[x].length-1) System.out.print("\t");
-						}
-						System.out.println("|");
-					}
-					System.out.println();
+					printMatriz(matrizCoefSistEc);
 
 					// Creacion de Vector Resultado
 
-					resultados[0] = 1.;
-					for (int i = 1 ; i < cantVar ; i++){
-						resultados[i] = 0.;
-					}
+					resultadosSistEc[0] = 1.;
+					for (int i = 1 ; i < cantVar ; i++)
+						resultadosSistEc[i] = 0.;
+
 
 					System.out.println("Vector Resultado del sistema");
 					System.out.print("[  ");
 					for(int h=0; h < cantVar; h++){
-						System.out.printf("%.3f  ",resultados[h]);
+						System.out.printf("%.3f  ",resultadosSistEc[h]);
 					}
 					System.out.println("]\n");
 
@@ -115,7 +99,7 @@ public class Parte1 {
 
 					EliminacionGauss gauss = new EliminacionGauss();
 
-					double[] vectorEstacionario = gauss.resolver(matrizCoef,resultados);
+					double[] vectorEstacionario = gauss.resolver(matrizCoefSistEc,resultadosSistEc);
 
 					System.out.println("Entropia de la fuente: " + entropia(matrizEstados, vectorEstacionario) + " unidades de orden 3");
 
@@ -191,6 +175,21 @@ public class Parte1 {
 		}
 		return Es;
 	}
+
+	public static void printMatriz(double[][] matriz){
+
+		for(int x=0 ; x < matriz.length ; x++) {
+			System.out.print("|");
+			for (int y=0 ; y < matriz[x].length ; y++) {
+				System.out.printf("%.3f", matriz[x][y]);
+				if (y != matriz[x].length-1) System.out.print("\t");
+			}
+			System.out.println("|");
+		}
+		System.out.println();
+	}
+
+
 
 
 	

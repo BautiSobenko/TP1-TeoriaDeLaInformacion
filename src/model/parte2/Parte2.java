@@ -22,7 +22,7 @@ public class Parte2 {
 			String datos = archivo.readLine();
 			int len = datos.length();
 
-			int tamanioPalabra = 3;
+			int tamanioPalabra = 7;
 			int i = 0;
 			ArrayList<String> listaPal = new ArrayList<String>(); //Guardo todas las Strings formadas
 			String formada;
@@ -40,10 +40,11 @@ public class Parte2 {
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
 
 			Codigo codigo = new Codigo(combinaciones);
-			System.out.printf("\nEs codigo bloque " + codigo.esCodigoBloque());
-			System.out.printf("\nEs codigo no singular " + codigo.esNoSingular());
-			System.out.printf("\nEs univocamente decodificable " + codigo.esUnivocamenteDecodificable());
-			System.out.printf("\nEs instantaneo \n" + codigo.esInstantaneo());
+			System.out.printf("\nEs codigo bloque: " + codigo.esCodigoBloque());
+			System.out.printf("\nEs codigo no singular: " + codigo.esNoSingular());
+			System.out.printf("\nEs univocamente decodificable: " + codigo.esUnivocamenteDecodificable());
+			System.out.printf("\nEs instantaneo: " + codigo.esInstantaneo());
+			System.out.println("\n");
 			int[] frecuencias = new int[combinaciones.size()];
 
 			for (i = 0; i < combinaciones.size(); i++) {
@@ -74,7 +75,7 @@ public class Parte2 {
 
 			System.out.printf(" -- ENTROPIA --\n");
 			double entropia = calculoEntropia(informaciones, probabilidades);
-			System.out.println("La Entropia de la fuente = " + entropia);
+			System.out.println("La Entropia de la fuente = " + entropia+ " Unidades de orden 3");
 
 			//Kraft
 
@@ -100,6 +101,7 @@ public class Parte2 {
 			double rendimiento = rendimiento(entropia,longMedia);
 			double redundancia = redundancia(rendimiento);
 			System.out.printf("El rendimiento es: " + rendimiento + "\nLa redundancia es: " + redundancia);
+			System.out.println("\n");
 
 			//Codificacion Huffman
 
@@ -127,7 +129,7 @@ public class Parte2 {
 			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
 			informacionFuente += informaciones[i];
 		}
-		System.out.println("La cantidad de informacion del codigo es: " + informacionFuente);
+		System.out.println("La cantidad de informacion del codigo es: " + informacionFuente+ " Unidades de orden 3");
 
 		return informaciones;
 
