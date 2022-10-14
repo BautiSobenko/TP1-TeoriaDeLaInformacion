@@ -33,8 +33,6 @@ public class Parte2 {
 				i += tamanioPalabra; //Avanzo a la siguiente palabra
 			}
 
-			int n = listaPal.size();
-
 			// Guardo en combinaciones las combinaciones unicas
 
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
@@ -60,7 +58,7 @@ public class Parte2 {
 				frecTotal += frecuencias[i];
 			}
 
-			System.out.printf(" -- PROBABILIDADES --\n");
+			System.out.println(" -- PROBABILIDADES --");
 			for (i = 0; i < frecuencias.length; i++) {
 				probabilidades[i] = ((float) frecuencias[i]) / frecTotal;
 				System.out.println("Probabilidad de " + combinaciones.get(i) + " es:" + probabilidades[i]);
@@ -68,12 +66,12 @@ public class Parte2 {
 
 			//Cantidad de informacion
 
-			System.out.printf(" -- INFORMACION --\n");
-			double[] informaciones = calculoInformacion(combinaciones ,probabilidades, tamanioPalabra);
+			System.out.println(" -- INFORMACION --");
+			double[] informaciones = calculoInformacion(combinaciones ,probabilidades);
 
 			//Entropia
 
-			System.out.printf(" -- ENTROPIA --\n");
+			System.out.println(" -- ENTROPIA --");
 			double entropia = calculoEntropia(informaciones, probabilidades);
 			System.out.println("La Entropia de la fuente = " + entropia+ " Unidades de orden 3");
 
@@ -121,7 +119,7 @@ public class Parte2 {
 		}
 	}
 
-	public static double[] calculoInformacion( ArrayList<String> combinaciones, float[] probabilidades, int tamanioPalabra){
+	public static double[] calculoInformacion( ArrayList<String> combinaciones, float[] probabilidades){
 		double[] informaciones = new double[combinaciones.size()];
 		double informacionFuente = 0;
 
