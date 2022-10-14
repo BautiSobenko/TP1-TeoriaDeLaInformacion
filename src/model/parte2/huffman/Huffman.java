@@ -23,11 +23,11 @@ public class Huffman {
 
     private void frecuencias() {
         this.frecPal = new HashMap<>();
-        for(String palabra : this.listaPal){
+        for(String palabra : this.listaPal) {
             Integer frec = this.frecPal.get(palabra);
             this.frecPal.put(palabra, frec != null ? frec + 1 : 1);
         }
-        frecPal.forEach((pal, frec) -> System.out.println("Palabra: " + pal + ": Frecuencia: " + frec));
+        //frecPal.forEach((pal, frec) -> System.out.println("Palabra: " + pal + ": Frecuencia: " + frec));
 
     }
 
@@ -82,5 +82,19 @@ public class Huffman {
                 System.out.println(pal + ": " + codigo)
         );
     }
+
+    public double longMedia(){
+        double frec;
+        double longitud = 0;
+        double total = 0;
+        for (Map.Entry<String, String> entry : huffmanCodes.entrySet()) {
+           frec =  this.frecPal.get(entry.getKey());
+           longitud += frec * entry.getValue().length();
+           total += frec;
+        }
+
+        return longitud/total;
+    }
+
 
 }
