@@ -111,7 +111,7 @@ public class Parte2 {
 
 			huffman.escribeArchivo("CodigoHuffman" + tamanioPalabra + ".txt");
 
-			System.out.println("Longitud media Huffman "+tamanioPalabra+": "+huffman.longMedia());
+			System.out.println("Longitud media codigo Huffman "+tamanioPalabra+": "+huffman.longMedia());
 
 			//Informacion acerca del tamaño del archivo original y de los archivos con codificacion Huffman
 			tamañosArchivos();
@@ -127,7 +127,7 @@ public class Parte2 {
 		double informacionFuente = 0;
 
 		for (int i = 0; i < probabilidades.length; i++) {
-			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(tamanioPalabra);
+			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
 			informacionFuente += informaciones[i];
 		}
 		System.out.println("La cantidad de informacion del codigo es: " + informacionFuente);
