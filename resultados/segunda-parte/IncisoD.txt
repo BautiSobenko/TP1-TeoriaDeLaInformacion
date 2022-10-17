@@ -1,4 +1,4 @@
 Inciso D:
 
 # Rendimiento: 88,68 % 
-# Redundancia:  11,32 % 
+# Redundancia: 11,32 % 

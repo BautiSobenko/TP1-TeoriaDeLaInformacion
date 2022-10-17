@@ -7,11 +7,11 @@ import java.io.*;
 
 public class Escritura {
 
-    public static void escribeIncisoA(double[][] matrizEstados, boolean esMemoriaNula){
+    public static void resultadoIncisoA(double[][] matrizEstados, boolean esMemoriaNula){
 
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/primer-parte/IncisoA.txt");
+            fichero = new FileWriter("./resultados/primera-parte/IncisoA.txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso A:\n");
             pw.println("# Probabilidades condicionales: \n");
@@ -26,6 +26,16 @@ public class Escritura {
                 pw.println("Fuente de memoria nula");
             else
                 pw.println("Fuente de memoria no nula");
+
+            pw.println("\n# Matriz de estados: \n");
+            for(int x=0 ; x < matrizEstados.length ; x++) {
+                pw.print("|");
+                for (int y=0 ; y < matrizEstados[x].length ; y++) {
+                    pw.printf("%.3f", matrizEstados[x][y]);
+                    if (y != matrizEstados[x].length-1) pw.print("\t");
+                }
+                pw.println("|");
+            }
 
             pw.close();
 
@@ -47,11 +57,11 @@ public class Escritura {
         return '-';
     }
 
-    public static void escribeIncisoC(boolean esErgodica, double[] vectorEstacionario, Double entropia){
+    public static void resultadoIncisoC(boolean esErgodica, double[][] matrizCoefSistEc, double[] vectorEstacionario, Double entropia){
 
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/primer-parte/IncisoC.txt");
+            fichero = new FileWriter("./resultados/primera-parte/IncisoC.txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso C:\n");
             pw.println("# Determinacion fuente ergodica o no ergodica: \n");
@@ -60,11 +70,20 @@ public class Escritura {
                 pw.println("La fuente no es ergodica\n");
             }else{
                 pw.println("La fuente resulta ergodica\n");
-                pw.println("# Vector estacionario: \n");
-                for(int i = 0 ; i < vectorEstacionario.length ; i++){
-                    pw.printf("X%d %.4f \n",i,vectorEstacionario[i]);
+                pw.println("# Matriz de coeficientes del sistema de ecuaciones para obtener el vector estacionario: \n");
+                for(int x=0 ; x < matrizCoefSistEc.length ; x++) {
+                    pw.print("|");
+                    for (int y=0 ; y < matrizCoefSistEc[x].length ; y++) {
+                        pw.printf("%.3f", matrizCoefSistEc[x][y]);
+                        if (y != matrizCoefSistEc[x].length-1) pw.print("\t");
+                    }
+                    pw.println("|");
                 }
-                pw.printf("\n# Entropia de la fuente: %.4f", entropia);
+                pw.println("\n# Vector estacionario: \n");
+                for(int i = 0 ; i < vectorEstacionario.length ; i++){
+                    pw.printf("X%d = %.4f \n",i,vectorEstacionario[i]);
+                }
+                pw.printf("\n# Entropia de la fuente: %.4f Unidades de orden 3", entropia);
             }
             pw.close();
 
@@ -73,7 +92,7 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoA(double cantInformacion, double entropia){
+    public static void resultadoIncisoA(double cantInformacion, double entropia){
         FileWriter fichero = null;
         try {
             fichero = new FileWriter("./resultados/segunda-parte/IncisoA.txt");
@@ -89,7 +108,7 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoB(Codigo codigo){
+    public static void resultadoIncisoB(Codigo codigo){
         FileWriter fichero = null;
         try {
             fichero = new FileWriter("./resultados/segunda-parte/IncisoB.txt");
@@ -108,7 +127,7 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoC(double kraft, double longMedia, boolean esCompacto){
+    public static void resultadoIncisoC(double kraft, double longMedia, boolean esCompacto){
         FileWriter fichero = null;
         try {
             fichero = new FileWriter("./resultados/segunda-parte/IncisoC.txt");
@@ -129,7 +148,7 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoD(double rendimiento, double redundancia){
+    public static void resultadoIncisoD(double rendimiento, double redundancia){
 
         FileWriter fichero = null;
         try {
@@ -137,7 +156,7 @@ public class Escritura {
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso D:\n");
             pw.printf("# Rendimiento: %.2f %c \n", rendimiento*100,'%');
-            pw.printf("# Redundancia:  %.2f %c \n", redundancia*100,'%');
+            pw.printf("# Redundancia: %.2f %c \n", redundancia*100,'%');
 
             pw.close();
 
@@ -146,13 +165,14 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoE1(Huffman huffman){
+    public static void resultadoIncisoE1(Huffman huffman){
 
         FileWriter fichero = null;
         try {
             fichero = new FileWriter("./resultados/segunda-parte/IncisoE1.txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso D: Codificacion de simbolos\n");
+            pw.printf("Longitud media de la codificacion: %.4f \n\n", huffman.longMedia());
             huffman.getHuffmanCodes().forEach((pal, codigo) ->
                     pw.println(pal + ": " + codigo)
             );
@@ -164,7 +184,7 @@ public class Escritura {
         }
     }
 
-    public static void escribeIncisoE2(Huffman huffman, String tamPalabra){
+    public static void resultadoIncisoE2(Huffman huffman, String tamPalabra){
 
         FileWriter fichero = null;
         try{

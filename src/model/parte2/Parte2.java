@@ -39,20 +39,14 @@ public class Parte2 {
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
 
 			Codigo codigo = new Codigo(combinaciones);
-			System.out.printf("\nEs codigo bloque: " + codigo.esCodigoBloque());
-			System.out.printf("\nEs codigo no singular: " + codigo.esNoSingular());
-			System.out.printf("\nEs univocamente decodificable: " + codigo.esUnivocamenteDecodificable());
-			System.out.printf("\nEs instantaneo: " + codigo.esInstantaneo());
-			System.out.println("\n");
-			Escritura.escribeIncisoB(codigo);
+			Escritura.resultadoIncisoB(codigo);
+
 			int[] frecuencias = new int[combinaciones.size()];
-
-
 			for (i = 0; i < combinaciones.size(); i++) {
 				frecuencias[i] = Collections.frequency(listaPal, combinaciones.get(i));
 			}
 
-			//Calculo de PROBABILIDADES de las palabras codigo
+			//Probabilidades
 
 			float[] probabilidades = new float[combinaciones.size()];
 			int frecTotal = 0;
@@ -61,69 +55,51 @@ public class Parte2 {
 				frecTotal += frecuencias[i];
 			}
 
-			System.out.println(" -- PROBABILIDADES --");
 			for (i = 0; i < frecuencias.length; i++) {
 				probabilidades[i] = ((float) frecuencias[i]) / frecTotal;
-				System.out.println("Probabilidad de " + combinaciones.get(i) + " es:" + probabilidades[i]);
 			}
 
 			//Cantidad de informacion
 
-			System.out.println(" -- INFORMACION --");
 			double[] informaciones = calculoInformacion(combinaciones ,probabilidades);
 			double cantInformacion = cantidadInformacion(informaciones);
-			System.out.println("La cantidad de informacion del codigo es: " + cantInformacion+ " Unidades de orden 3");
 
 			//Entropia
 
-			System.out.println(" -- ENTROPIA --");
 			double entropia = calculoEntropia(informaciones, probabilidades);
-			System.out.println("La Entropia de la fuente = " + entropia+ " Unidades de orden 3");
 
-			Escritura.escribeIncisoA(cantInformacion, entropia);
+			Escritura.resultadoIncisoA(cantInformacion, entropia);
 
 			//Kraft
 
-			int r = 3;
-			float kraft = (float) (Math.pow(r, (-tamanioPalabra)) * combinaciones.size());
-			System.out.println("La inecuacion de kraft es:  " + kraft + " <= 1.0");
+			int numSimbolosDistintos = 3;
+			float kraft = (float) (Math.pow(numSimbolosDistintos, (-tamanioPalabra)) * combinaciones.size());
 
 			//Longitud Media
 
 			double longMedia = calculoLongMedia(probabilidades, tamanioPalabra);
-			System.out.println("La longitud media del codigo es: " + longMedia + " Unidades de orden 3");
 
 			//Condicion codigo compacto
 
 			boolean esCompacto = longMedia <= tamanioPalabra;
 
-			Escritura.escribeIncisoC(kraft, longMedia, esCompacto);
-
-			if ( esCompacto ) {
-				System.out.println("El codigo es compacto");
-			} else {
-				System.out.println("El codigo no es compacto");
-			}
+			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto);
 
 			// Rendimiento y redundancia
 
 			double rendimiento = rendimiento(entropia,longMedia);
 			double redundancia = redundancia(rendimiento);
-			System.out.printf("El rendimiento es: " + rendimiento + "\nLa redundancia es: " + redundancia);
-			System.out.println("\n");
 
-			Escritura.escribeIncisoD(rendimiento, redundancia);
+			Escritura.resultadoIncisoD(rendimiento, redundancia);
 
 			//Codificacion Huffman
 
 			Huffman huffman = new Huffman(listaPal);
 			huffman.encode();
 
-			Escritura.escribeIncisoE1(huffman);
+			Escritura.resultadoIncisoE1(huffman);
 
-			Escritura.escribeIncisoE2(huffman, Integer.toString(tamanioPalabra));
-
-			System.out.println("Longitud media codigo Huffman "+tamanioPalabra+": "+huffman.longMedia());
+			Escritura.resultadoIncisoE2(huffman, Integer.toString(tamanioPalabra));
 
 		}
 		catch(Exception e) {

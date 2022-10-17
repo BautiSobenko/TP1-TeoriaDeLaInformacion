@@ -1,5 +1,7 @@
 Inciso D: Codificacion de simbolos
 
+Longitud media de la codificacion: 9,9125 
+
 CCCABAB: 1101000101
 CCCABAC: 11110010110
 ACCCCCA: 01111100
