@@ -83,7 +83,7 @@ public class Parte1 {
 							matrizOriginalSistEc[i][j] = matrizEstados[i][j];
 							if(i == j){ //Diagonal
 								matrizCoefSistEc[i][j] -= 1.00;
-								matrizCoefSistEc[i][j] -= 1.00;
+								matrizOriginalSistEc[i][j] -= 1.00;
 							}
 						}
 					}
