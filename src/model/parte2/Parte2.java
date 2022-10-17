@@ -39,7 +39,7 @@ public class Parte2 {
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
 
 			Codigo codigo = new Codigo(combinaciones);
-			Escritura.resultadoIncisoB(codigo);
+			Escritura.resultadoIncisoB(codigo, Integer.toString(tamanioPalabra));
 
 			int[] frecuencias = new int[combinaciones.size()];
 			for (i = 0; i < combinaciones.size(); i++) {
@@ -68,7 +68,7 @@ public class Parte2 {
 
 			double entropia = calculoEntropia(informaciones, probabilidades);
 
-			Escritura.resultadoIncisoA(cantInformacion, entropia);
+			Escritura.resultadoIncisoA(cantInformacion, entropia, Integer.toString(tamanioPalabra));
 
 			//Kraft
 
@@ -83,21 +83,21 @@ public class Parte2 {
 
 			boolean esCompacto = longMedia <= tamanioPalabra;
 
-			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto);
+			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto, Integer.toString(tamanioPalabra));
 
 			// Rendimiento y redundancia
 
 			double rendimiento = rendimiento(entropia,longMedia);
 			double redundancia = redundancia(rendimiento);
 
-			Escritura.resultadoIncisoD(rendimiento, redundancia);
+			Escritura.resultadoIncisoD(rendimiento, redundancia, Integer.toString(tamanioPalabra));
 
 			//Codificacion Huffman
 
 			Huffman huffman = new Huffman(listaPal);
 			huffman.encode();
 
-			Escritura.resultadoIncisoE1(huffman);
+			Escritura.resultadoIncisoE1(huffman, Integer.toString(tamanioPalabra));
 
 			Escritura.resultadoIncisoE2(huffman, Integer.toString(tamanioPalabra));
 

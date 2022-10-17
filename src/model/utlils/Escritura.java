@@ -92,10 +92,10 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoA(double cantInformacion, double entropia){
+    public static void resultadoIncisoA(double cantInformacion, double entropia, String tamPalabra){
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoA.txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoA-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso A:\n");
             pw.printf("# Cantidad de informacion: %.4f Unidades de orden 3\n", cantInformacion);
@@ -108,10 +108,10 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoB(Codigo codigo){
+    public static void resultadoIncisoB(Codigo codigo, String tamPalabra){
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoB.txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoB-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso B:\n");
             pw.println("# Tipo de codigo obtenido: \n");
@@ -127,10 +127,10 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoC(double kraft, double longMedia, boolean esCompacto){
+    public static void resultadoIncisoC(double kraft, double longMedia, boolean esCompacto, String tamPalabra){
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoC.txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoC-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso C:\n");
             pw.printf("# Inecuacion de Kraft: %.2f <= 1.00 \n", kraft);
@@ -148,11 +148,11 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoD(double rendimiento, double redundancia){
+    public static void resultadoIncisoD(double rendimiento, double redundancia, String tamPalabra){
 
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoD.txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoD-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso D:\n");
             pw.printf("# Rendimiento: %.2f %c \n", rendimiento*100,'%');
@@ -165,11 +165,11 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoE1(Huffman huffman){
+    public static void resultadoIncisoE1(Huffman huffman, String tamPalabra){
 
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoE1.txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoE1-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso D: Codificacion de simbolos\n");
             pw.printf("Longitud media de la codificacion: %.4f \n\n", huffman.longMedia());
@@ -188,7 +188,7 @@ public class Escritura {
 
         FileWriter fichero = null;
         try{
-            fichero = new FileWriter("./resultados/segunda-parte/IncisoE2-"+tamPalabra+".txt");
+            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoE2-"+tamPalabra+".txt");
             PrintWriter pw = new PrintWriter(fichero);
 
             pw.print(huffman.getCodigo());

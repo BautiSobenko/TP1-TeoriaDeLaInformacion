@@ -1,5 +1,6 @@
 package model.parte1;
 
+import model.parte1.EliminacionGauss.EliminacionGauss;
 import model.utlils.Escritura;
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,9 +45,9 @@ public class Parte1 {
 			Escritura.resultadoIncisoA(matrizEstados, esMemoriaNula);
 
 			if( esMemoriaNula )
-				System.out.println("Fuente de memoria nula\n");
+				System.out.println("\nFuente de memoria nula\n");
 			else{
-				System.out.println("Fuente de memoria no nula");
+				System.out.println("\nFuente de memoria no nula");
 
 				boolean esErgodica = isErgodica(matrizEstados);
 
@@ -55,7 +56,7 @@ public class Parte1 {
 					Escritura.resultadoIncisoC(esErgodica,null,null,null);
 				}
 				else{
-					System.out.println("Fuente ergodica\n");
+					System.out.println("Fuente ergodica");
 
 					//Calculo de vector estacionario
 

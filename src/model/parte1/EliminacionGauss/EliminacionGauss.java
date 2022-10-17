@@ -1,4 +1,4 @@
-package model.parte1;
+package model.parte1.EliminacionGauss;
 
 import java.util.Scanner;
 
