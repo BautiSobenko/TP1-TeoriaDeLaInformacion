@@ -42,7 +42,6 @@ public class Parte1 {
             	}
             }
 
-			PrintStream output = new PrintStream("resultados/IncisoA.txt");
 			Escritura.escribeIncisoA(matrizEstados);
 
 			System.out.println("Matriz de Transicion de estados del sistema");

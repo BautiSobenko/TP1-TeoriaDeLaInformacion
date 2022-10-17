@@ -6,18 +6,15 @@ public class Escritura {
 
     public static void escribeIncisoA(double[][] matrizEstados){
 
-        File folder = new File ("./Resultados");
-        folder.mkdirs();
-
-
-        File file = new File("Resultados.txt");
+        FileWriter fichero = null;
         try {
-            file.createNewFile();
+            fichero = new FileWriter("./results.txt");
+            PrintWriter pw = new PrintWriter(fichero);
+            pw.print("The first line");
+            pw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private static char buscaSimbolo(int posicion){
