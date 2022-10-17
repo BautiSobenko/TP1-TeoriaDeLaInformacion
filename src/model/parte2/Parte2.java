@@ -22,7 +22,7 @@ public class Parte2 {
 			String datos = archivo.readLine();
 			int len = datos.length();
 
-			int tamanioPalabra = 7;
+			int tamanioPalabra = 3;
 			int i = 0;
 			ArrayList<String> listaPal = new ArrayList<String>(); //Guardo todas las Strings formadas
 			String formada;
@@ -44,6 +44,7 @@ public class Parte2 {
 			System.out.printf("\nEs instantaneo: " + codigo.esInstantaneo());
 			System.out.println("\n");
 			int[] frecuencias = new int[combinaciones.size()];
+
 
 			for (i = 0; i < combinaciones.size(); i++) {
 				frecuencias[i] = Collections.frequency(listaPal, combinaciones.get(i));
@@ -84,7 +85,7 @@ public class Parte2 {
 			//Longitud Media
 
 			double longMedia = calculoLongMedia(probabilidades, tamanioPalabra);
-			System.out.println("La longitud media del codigo es: " + longMedia + "U. de orden 3");
+			System.out.println("La longitud media del codigo es: " + longMedia + " Unidades de orden 3");
 
 			//Condicion codigo compacto
 

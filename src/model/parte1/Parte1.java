@@ -1,8 +1,11 @@
 package model.parte1;
 
+import model.utlils.Escritura;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.PrintStream;
 
 public class Parte1 {
 
@@ -34,11 +37,13 @@ public class Parte1 {
 
             //Calculo de probabilidades condicionales
             for(int i=0 ; i<3 ; i++) {
-				System.out.println("Apariciones totales: "+aparicionesTotales[i]);
             	for(int j=0 ; j<3 ; j++) {
             		matrizEstados[i][j] = (double) matrizApariciones[i][j] / aparicionesTotales[i];
             	}
             }
+
+			PrintStream output = new PrintStream("resultados/IncisoA.txt");
+			Escritura.escribeIncisoA(matrizEstados);
 
 			System.out.println("Matriz de Transicion de estados del sistema");
 			printMatriz(matrizEstados);
@@ -101,8 +106,7 @@ public class Parte1 {
 
 					double[] vectorEstacionario = gauss.resolver(matrizCoefSistEc,resultadosSistEc);
 
-					System.out.println("Entropia de la fuente: " + entropia(matrizEstados, vectorEstacionario) + " unidades de orden 3");
-
+					System.out.println("Entropia de la fuente: " + entropia(matrizEstados, vectorEstacionario) + " Unidades de orden 3");
 
 				}
 
