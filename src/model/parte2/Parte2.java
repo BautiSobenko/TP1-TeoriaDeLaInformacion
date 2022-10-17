@@ -2,6 +2,7 @@ package model.parte2;
 
 import model.parte2.codigos.Codigo;
 import model.parte2.huffman.Huffman;
+import model.utlils.Escritura;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,7 +23,7 @@ public class Parte2 {
 			String datos = archivo.readLine();
 			int len = datos.length();
 
-			int tamanioPalabra = 3;
+			int tamanioPalabra = 7;
 			int i = 0;
 			ArrayList<String> listaPal = new ArrayList<String>(); //Guardo todas las Strings formadas
 			String formada;
@@ -43,6 +44,7 @@ public class Parte2 {
 			System.out.printf("\nEs univocamente decodificable: " + codigo.esUnivocamenteDecodificable());
 			System.out.printf("\nEs instantaneo: " + codigo.esInstantaneo());
 			System.out.println("\n");
+			Escritura.escribeIncisoB(codigo);
 			int[] frecuencias = new int[combinaciones.size()];
 
 
@@ -69,12 +71,16 @@ public class Parte2 {
 
 			System.out.println(" -- INFORMACION --");
 			double[] informaciones = calculoInformacion(combinaciones ,probabilidades);
+			double cantInformacion = cantidadInformacion(informaciones);
+			System.out.println("La cantidad de informacion del codigo es: " + cantInformacion+ " Unidades de orden 3");
 
 			//Entropia
 
 			System.out.println(" -- ENTROPIA --");
 			double entropia = calculoEntropia(informaciones, probabilidades);
 			System.out.println("La Entropia de la fuente = " + entropia+ " Unidades de orden 3");
+
+			Escritura.escribeIncisoA(cantInformacion, entropia);
 
 			//Kraft
 
@@ -89,7 +95,11 @@ public class Parte2 {
 
 			//Condicion codigo compacto
 
-			if (longMedia <= tamanioPalabra) {
+			boolean esCompacto = longMedia <= tamanioPalabra;
+
+			Escritura.escribeIncisoC(kraft, longMedia, esCompacto);
+
+			if ( esCompacto ) {
 				System.out.println("El codigo es compacto");
 			} else {
 				System.out.println("El codigo no es compacto");
@@ -102,15 +112,16 @@ public class Parte2 {
 			System.out.printf("El rendimiento es: " + rendimiento + "\nLa redundancia es: " + redundancia);
 			System.out.println("\n");
 
+			Escritura.escribeIncisoD(rendimiento, redundancia);
+
 			//Codificacion Huffman
 
 			Huffman huffman = new Huffman(listaPal);
 			huffman.encode();
 
-			//String code = huffman.getCodigo();
-			//System.out.println(code);
+			Escritura.escribeIncisoE1(huffman);
 
-			huffman.escribeArchivo("CodigoHuffman" + tamanioPalabra + ".txt");
+			Escritura.escribeIncisoE2(huffman, Integer.toString(tamanioPalabra));
 
 			System.out.println("Longitud media codigo Huffman "+tamanioPalabra+": "+huffman.longMedia());
 
@@ -120,15 +131,20 @@ public class Parte2 {
 		}
 	}
 
+	public static double cantidadInformacion(double[] informaciones){
+		double informacionFuente = 0;
+		for (int i = 0; i < informaciones.length; i++) {
+			informacionFuente += informaciones[i];
+		}
+		return informacionFuente;
+	}
+
 	public static double[] calculoInformacion( ArrayList<String> combinaciones, float[] probabilidades){
 		double[] informaciones = new double[combinaciones.size()];
-		double informacionFuente = 0;
 
 		for (int i = 0; i < probabilidades.length; i++) {
 			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
-			informacionFuente += informaciones[i];
 		}
-		System.out.println("La cantidad de informacion del codigo es: " + informacionFuente+ " Unidades de orden 3");
 
 		return informaciones;
 

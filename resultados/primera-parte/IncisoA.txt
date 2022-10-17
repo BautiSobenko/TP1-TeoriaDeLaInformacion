@@ -1,0 +1,17 @@
+Inciso A:
+
+# Probabilidades condicionales: 
+
+Probabilidad (A | A): 0,2742 
+Probabilidad (B | A): 0,3203 
+Probabilidad (C | A): 0,4051 
+Probabilidad (A | B): 0,2586 
+Probabilidad (B | B): 0,3228 
+Probabilidad (C | B): 0,4186 
+Probabilidad (A | C): 0,2731 
+Probabilidad (B | C): 0,3043 
+Probabilidad (C | C): 0,4228 
+
+# Determinacion del tipo de fuente: 
+
+Fuente de memoria no nula

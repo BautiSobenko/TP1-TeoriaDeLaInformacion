@@ -1,0 +1,13 @@
+Inciso C:
+
+# Determinacion fuente ergodica o no ergodica: 
+
+La fuente resulta ergodica
+
+# Vector estacionario: 
+
+X0 0,3332 
+X1 0,3333 
+X2 0,3334 
+
+# Entropia de la fuente: 0,9847

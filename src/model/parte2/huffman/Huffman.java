@@ -43,7 +43,6 @@ public class Huffman {
             queue.add(new Nodo(queue.poll(), queue.poll()));
         }
         generarCodigoHuffman(root = queue.poll(), "");
-        printCodes();
     }
 
     private void generarCodigoHuffman(Nodo nodo, String codigo){
@@ -55,32 +54,12 @@ public class Huffman {
         }
     }
 
-    public void escribeArchivo( String nombreArchivo ){
-
-        try{
-            FileWriter fichero = new FileWriter("./resultados/"+nombreArchivo);
-            PrintWriter pw = new PrintWriter(fichero);
-
-            pw.print(this.getCodigo());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     public String getCodigo(){
         StringBuilder sb = new StringBuilder();
         for(String pal : this.listaPal){
             sb.append(huffmanCodes.get(pal));
         }
         return sb.toString();
-    }
-
-    private void printCodes(){
-        huffmanCodes.forEach((pal, codigo) ->
-                System.out.println(pal + ": " + codigo)
-        );
     }
 
     public double longMedia(){
@@ -96,5 +75,7 @@ public class Huffman {
         return longitud/total;
     }
 
-
+    public Map<String, String> getHuffmanCodes() {
+        return huffmanCodes;
+    }
 }

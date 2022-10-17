@@ -1,11 +1,9 @@
 package model.parte1;
 
 import model.utlils.Escritura;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.PrintStream;
 
 public class Parte1 {
 
@@ -42,18 +40,23 @@ public class Parte1 {
             	}
             }
 
-			Escritura.escribeIncisoA(matrizEstados);
-
 			System.out.println("Matriz de Transicion de estados del sistema");
 			printMatriz(matrizEstados);
 
-			if( isMemoriaNula(matrizEstados) )
+			boolean esMemoriaNula = isMemoriaNula(matrizEstados);
+			Escritura.escribeIncisoA(matrizEstados, esMemoriaNula);
+
+			if( esMemoriaNula )
 				System.out.println("Fuente de memoria nula\n");
 			else{
 				System.out.println("Fuente de memoria no nula");
 
-				if( !isErgodica(matrizEstados) )
+				boolean esErgodica = isErgodica(matrizEstados);
+
+				if( !esErgodica ){
 					System.out.println("Fuente no ergodica\n");
+					Escritura.escribeIncisoC(esErgodica,null,null);
+				}
 				else{
 					System.out.println("Fuente ergodica\n");
 
@@ -105,7 +108,11 @@ public class Parte1 {
 
 					double[] vectorEstacionario = gauss.resolver(matrizCoefSistEc,resultadosSistEc);
 
-					System.out.println("Entropia de la fuente: " + entropia(matrizEstados, vectorEstacionario) + " Unidades de orden 3");
+					double entropia = entropia(matrizEstados, vectorEstacionario);
+
+					Escritura.escribeIncisoC(esErgodica,vectorEstacionario,entropia);
+
+					System.out.println("Entropia de la fuente: " + entropia + " Unidades de orden 3");
 
 				}
 
