@@ -75,6 +75,16 @@ public class Huffman {
         return longitud/total;
     }
 
+    public StringBuilder tablaCodificacion(){
+        StringBuilder tabla = new StringBuilder();
+
+        this.huffmanCodes.forEach((pal, codigo) ->
+                tabla.append(codigo)
+        );
+
+        return tabla;
+    }
+
     public Map<String, String> getHuffmanCodes() {
         return huffmanCodes;
     }
