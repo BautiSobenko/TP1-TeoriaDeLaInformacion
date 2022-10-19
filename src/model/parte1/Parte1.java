@@ -1,6 +1,5 @@
 package model.parte1;
 
-import model.parte1.EliminacionGauss.EliminacionGauss;
 import model.parte1.ordenCodigo.ordenCodigo;
 import model.utlils.Escritura;
 import java.io.BufferedReader;
@@ -68,30 +67,22 @@ public class Parte1 {
 					// a               +    b               +    c               =    1
 
 					double[][] matrizCoefSistEc = new double[3][3]; //Inicializo el sistema de ec
-					double[][] matrizOriginalSistEc = new double[3][3];
-					double[]   resultadosSistEc = new double[3];
-
 					// Creacion de Matriz de Coeficientes
 
 					int cantVar = 3;
 
 					for(int j = 0 ; j < cantVar ; j++) {
 						matrizCoefSistEc[0][j] = 1.00; // a + b + c + ... + n
-						matrizOriginalSistEc[0][j] = 1.00;
 					}
 					for(int i = 1 ; i < cantVar ; i++){
 						for(int j = 0 ; j < cantVar ; j++) {
 							matrizCoefSistEc[i][j] = matrizEstados[i][j];
-							matrizOriginalSistEc[i][j] = matrizEstados[i][j];
 							if(i == j){ //Diagonal
 								matrizCoefSistEc[i][j] -= 1.00;
-								matrizOriginalSistEc[i][j] -= 1.00;
 							}
 						}
 					}
-
 				}
-
 			}
 		}
 		catch(Exception e){

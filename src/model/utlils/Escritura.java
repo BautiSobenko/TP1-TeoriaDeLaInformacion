@@ -36,7 +36,6 @@ public class Escritura {
                 }
                 pw.println("|");
             }
-
             pw.close();
 
         } catch (IOException e) {
