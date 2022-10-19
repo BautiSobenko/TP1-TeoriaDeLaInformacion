@@ -65,4 +65,51 @@ public class Codigo {
         prefijos.remove(prefijos.size()-1);
         return prefijos;
     }
+
+    public static double cantidadInformacion(double[] informaciones){
+        double informacionFuente = 0;
+        for (int i = 0; i < informaciones.length; i++) {
+            informacionFuente += informaciones[i];
+        }
+        return informacionFuente;
+    }
+
+    public static double[] calculoInformacion( ArrayList<String> combinaciones, float[] probabilidades){
+        double[] informaciones = new double[combinaciones.size()];
+
+        for (int i = 0; i < probabilidades.length; i++) {
+            informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
+        }
+
+        return informaciones;
+
+    }
+
+    public static double calculoEntropia(double[] informaciones, float[] probabilidades){
+        double entropia = 0;
+
+        for (int i = 0; i < probabilidades.length; i++) {
+            entropia += informaciones[i] * probabilidades[i];
+        }
+
+        return entropia;
+    }
+
+    public static double calculoLongMedia(float[] probabilidades, int tamanioPalabra){
+        double sum = 0;
+
+        for (float probabilidad : probabilidades) {
+            sum += probabilidad;
+        }
+
+        return sum * tamanioPalabra;
+    }
+
+    public static double rendimiento(double entropia, double longitudMedia){
+        return entropia / longitudMedia;
+    }
+
+    public static double redundancia(double rendimiento){
+        return 1 - rendimiento;
+    }
 }

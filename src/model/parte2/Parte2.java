@@ -62,12 +62,12 @@ public class Parte2 {
 
 			//Cantidad de informacion
 
-			double[] informaciones = calculoInformacion(combinaciones ,probabilidades);
-			double cantInformacion = cantidadInformacion(informaciones);
+			double[] informaciones = Codigo.calculoInformacion(combinaciones ,probabilidades);
+			double cantInformacion = Codigo.cantidadInformacion(informaciones);
 
 			//Entropia
 
-			double entropia = calculoEntropia(informaciones, probabilidades);
+			double entropia = Codigo.calculoEntropia(informaciones, probabilidades);
 			// DESPRINTEAR ESTO
 			Escritura.resultadoIncisoA(cantInformacion, entropia, Integer.toString(tamanioPalabra));
 
@@ -78,7 +78,7 @@ public class Parte2 {
 
 			//Longitud Media
 
-			double longMedia = calculoLongMedia(probabilidades, tamanioPalabra);
+			double longMedia = Codigo.calculoLongMedia(probabilidades, tamanioPalabra);
 
 			//Condicion codigo compacto
 
@@ -88,8 +88,8 @@ public class Parte2 {
 
 			// Rendimiento y redundancia
 
-			double rendimiento = rendimiento(entropia,longMedia);
-			double redundancia = redundancia(rendimiento);
+			double rendimiento = Codigo.rendimiento(entropia,longMedia);
+			double redundancia = Codigo.redundancia(rendimiento);
 
 			Escritura.resultadoIncisoD(rendimiento, redundancia, Integer.toString(tamanioPalabra));
 
@@ -106,53 +106,6 @@ public class Parte2 {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static double cantidadInformacion(double[] informaciones){
-		double informacionFuente = 0;
-		for (int i = 0; i < informaciones.length; i++) {
-			informacionFuente += informaciones[i];
-		}
-		return informacionFuente;
-	}
-
-	public static double[] calculoInformacion( ArrayList<String> combinaciones, float[] probabilidades){
-		double[] informaciones = new double[combinaciones.size()];
-
-		for (int i = 0; i < probabilidades.length; i++) {
-			informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(3);
-		}
-
-		return informaciones;
-
-	}
-
-	public static double calculoEntropia(double[] informaciones, float[] probabilidades){
-		double entropia = 0;
-
-		for (int i = 0; i < probabilidades.length; i++) {
-			entropia += informaciones[i] * probabilidades[i];
-		}
-
-		return entropia;
-	}
-
-	public static double calculoLongMedia(float[] probabilidades, int tamanioPalabra){
-		double sum = 0;
-
-		for (float probabilidad : probabilidades) {
-			sum += probabilidad;
-		}
-
-		return sum * tamanioPalabra;
-	}
-
-	public static double rendimiento(double entropia, double longitudMedia){
-			return entropia / longitudMedia;
-	}
-
-	public static double redundancia(double rendimiento){
-		return 1 - rendimiento;
 	}
 
 }

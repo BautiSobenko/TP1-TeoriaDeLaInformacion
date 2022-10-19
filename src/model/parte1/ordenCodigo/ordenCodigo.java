@@ -4,26 +4,24 @@ import model.utlils.Escritura;
 
 public class ordenCodigo {
 
-    private double totalApariciones;
     private double probabilidades[] = new double[3];
     private double entropiaInicial;
+    double probTotal[] = new double[1];
+    double entropia[] = new double[1];
+    char[] simbolos = {'a', 'b' ,'c'};
 
     public ordenCodigo( int probabilidadesTotales[]) {
-        this.totalApariciones = 0;
-        char[] simbolos = {'a', 'b' ,'c'};
-        int orden = 1;
-        double probTotal[] = new double[1];
-        double entropia[] = new double[1];
-        probTotal[0] = 0;
-        entropia[0] = 0;
+        // Calculo entropia para fuente Inicial
+        this.probTotal[0] = 0;
+        this.entropia[0] = 0;
         this.probabilidades(probabilidadesTotales);
-        this.probabilidadOrdenK(simbolos, orden , probTotal , entropia);
+        this.probabilidadOrdenK(this.simbolos, 1 , this.probTotal , this.entropia);
         entropiaInicial = entropia[0];
-        orden = 20;
-        probTotal[0] = 0;
-        entropia[0] = 0;
-        this.probabilidadOrdenK(simbolos, orden , probTotal , entropia);
-        System.out.printf("entropia total" + entropia[0]);
+
+        // Calculo entropia para fuente de orden 20.
+        this.probTotal[0] = 0;
+        this.entropia[0] = 0;
+        this.probabilidadOrdenK(this.simbolos, 20 , this.probTotal , this.entropia);
         Escritura.resultadoIncisoB(entropiaInicial , entropia[0] );
     }
 
