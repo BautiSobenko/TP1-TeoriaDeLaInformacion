@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TP1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TP1_jar</output-path>
+    <root id="archive" name="TP1.jar">
+      <element id="module-output" name="TP1" />
+      <element id="library" level="module" name="Jama-1.0.3.jar" module-name="TP1" />
+    </root>
+  </artifact>
+</component>
