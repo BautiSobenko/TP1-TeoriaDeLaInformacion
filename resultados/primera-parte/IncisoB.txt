@@ -1,0 +1,4 @@
+Inciso B:
+
+# Entropia para fuente inicial: 0,9846 Unidades de orden 3
+# Entropia para fuente de orden 20: 19,6549 Unidades de orden 3

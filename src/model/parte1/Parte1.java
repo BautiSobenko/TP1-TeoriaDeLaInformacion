@@ -1,6 +1,7 @@
 package model.parte1;
 
 import model.parte1.EliminacionGauss.EliminacionGauss;
+import model.parte1.ordenCodigo.ordenCodigo;
 import model.utlils.Escritura;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +17,7 @@ public class Parte1 {
 			BufferedReader archivo = new BufferedReader(new FileReader(file));
             String datos = archivo.readLine();
             int len = datos.length();
-            
+
             int[][] matrizApariciones = new int[3][3];    //Matriz de apariciones si el simbolo previo a X es A | B | C
             int[]  aparicionesTotales = new int[3];       //Apariciones totales por simbolo
             double[][]  matrizEstados = new double[3][3]; //Matriz de transicion de estados (probabilidades)
@@ -41,14 +42,15 @@ public class Parte1 {
             	}
             }
 
-			boolean esMemoriaNula = isMemoriaNula(matrizEstados);
+			boolean esMemoriaNula = isMemoriaNula(matrizEstados, 0.05);
 			Escritura.resultadoIncisoA(matrizEstados, esMemoriaNula);
 
-			if( esMemoriaNula )
+			if( esMemoriaNula ) {
 				System.out.println("\nFuente de memoria nula\n");
+				ordenCodigo codigo = new ordenCodigo(aparicionesTotales);
+			}
 			else{
 				System.out.println("\nFuente de memoria no nula");
-
 				boolean esErgodica = isErgodica(matrizEstados);
 
 				if( !esErgodica ){
@@ -88,22 +90,6 @@ public class Parte1 {
 						}
 					}
 
-					// Creacion de Vector Resultado
-
-					resultadosSistEc[0] = 1.;
-					for (int i = 1 ; i < cantVar ; i++)
-						resultadosSistEc[i] = 0.;
-
-					//Resolucion del sistema utilizando Eliminacion de Gauss
-
-					EliminacionGauss gauss = new EliminacionGauss();
-
-					double[] vectorEstacionario = gauss.resolver(matrizCoefSistEc,resultadosSistEc);
-
-					double entropia = entropia(matrizEstados, vectorEstacionario);
-
-					Escritura.resultadoIncisoC(esErgodica,matrizOriginalSistEc,vectorEstacionario,entropia);
-
 				}
 
 			}
@@ -111,10 +97,11 @@ public class Parte1 {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+
 	}
-	
+
 	private static int BuscaIndice(char i) {
-		
+
 		if(i == 'A')
 			return 0;     // posicion 0 si es A
 		else if(i == 'B')
@@ -140,7 +127,7 @@ public class Parte1 {
 
 	}
 
-	public static boolean isMemoriaNula(double[][] matrizEstados){
+	public static boolean isMemoriaNula(double[][] matrizEstados , double error){
 		boolean isMemoriaNula = false;
 		int j;
 		int i = 0;
@@ -148,7 +135,7 @@ public class Parte1 {
 		while(i<3 && !isMemoriaNula) {
 			j = 0;
 			while(j<2 && !isMemoriaNula) {
-				if(matrizEstados[i][j] != matrizEstados[i][j+1])
+				if(matrizEstados[i][j] < matrizEstados[i][j+1] - error || matrizEstados[i][j] > matrizEstados[i][j+1] + error)
 					j++;
 				else
 					isMemoriaNula = true;
@@ -175,12 +162,9 @@ public class Parte1 {
 		}
 		return Es;
 	}
-
-
-
-
-
-	
-	
-
 }
+
+
+	
+	
+

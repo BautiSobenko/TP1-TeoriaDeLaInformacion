@@ -14,7 +14,7 @@ Probabilidad (C | C): 0,4228
 
 # Determinacion del tipo de fuente: 
 
-Fuente de memoria no nula
+Fuente de memoria nula
 
 # Matriz de estados: 
 

@@ -39,6 +39,7 @@ public class Parte2 {
 			ArrayList<String> combinaciones = (ArrayList<String>) listaPal.stream().distinct().collect(Collectors.toList());
 
 			Codigo codigo = new Codigo(combinaciones);
+			// DESPRINTEAR ESTO
 			Escritura.resultadoIncisoB(codigo, Integer.toString(tamanioPalabra));
 
 			int[] frecuencias = new int[combinaciones.size()];
@@ -67,7 +68,7 @@ public class Parte2 {
 			//Entropia
 
 			double entropia = calculoEntropia(informaciones, probabilidades);
-
+			// DESPRINTEAR ESTO
 			Escritura.resultadoIncisoA(cantInformacion, entropia, Integer.toString(tamanioPalabra));
 
 			//Kraft

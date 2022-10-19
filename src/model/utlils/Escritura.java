@@ -44,6 +44,25 @@ public class Escritura {
         }
     }
 
+    public static void resultadoIncisoB(double entropiaInicial, double entropiaFuente){
+
+        FileWriter fichero = null;
+        try {
+            fichero = new FileWriter("./resultados/primera-parte/IncisoB.txt");
+            PrintWriter pw = new PrintWriter(fichero);
+
+            pw.println("Inciso B:\n");
+            pw.printf("# Entropia para fuente inicial: %.4f Unidades de orden 3\n", entropiaInicial);
+            pw.printf("# Entropia para fuente de orden 20: %.4f Unidades de orden 3\n", entropiaFuente);
+            pw.close();
+            pw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     private static char buscaSimbolo(int posicion){
         if( posicion == 0 )
             return 'A';
