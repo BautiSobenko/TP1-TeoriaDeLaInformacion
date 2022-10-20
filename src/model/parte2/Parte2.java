@@ -82,7 +82,7 @@ public class Parte2 {
 
 			//Condicion codigo compacto
 
-			boolean esCompacto = longMedia <= tamanioPalabra;
+			boolean esCompacto = entropia <= longMedia;
 
 			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto, Integer.toString(tamanioPalabra));
 
