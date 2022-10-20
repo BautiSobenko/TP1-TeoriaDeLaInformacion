@@ -1,0 +1,4 @@
+Inciso D:
+
+# Rendimiento: 98,28 % 
+# Redundancia: 1,72 % 
