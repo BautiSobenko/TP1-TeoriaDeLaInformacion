@@ -188,6 +188,6 @@ public class Main {
             }
         }
         System.out.printf("Termino la ejecucion del programa. Los resultados se encuentran en la carpeta RESULTADOS \n");
-        System.out.printf("Integrantes:\n ------ Bautista Sobemko \n ------ Rojas Agustin \n ------ Matarazzo Tomas");
+        System.out.printf("Integrantes:\n ------ Bautista Sobenko \n ------ Rojas Agustin \n ------ Matarazzo Tomas");
     }
 }
