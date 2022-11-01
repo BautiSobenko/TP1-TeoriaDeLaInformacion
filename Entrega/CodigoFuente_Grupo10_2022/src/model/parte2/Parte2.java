@@ -69,7 +69,7 @@ public class Parte2 {
 
 			double entropia = Codigo.calculoEntropia(informaciones, probabilidades);
 			// DESPRINTEAR ESTO
-			Escritura.resultadoIncisoA(cantInformacion, entropia, Integer.toString(tamanioPalabra));
+			Escritura.resultadoIncisoA(combinaciones, informaciones, entropia, Integer.toString(tamanioPalabra));
 
 			//Kraft
 
@@ -82,7 +82,7 @@ public class Parte2 {
 
 			//Condicion codigo compacto
 
-			boolean esCompacto = entropia <= longMedia;
+			boolean esCompacto = Codigo.esCompacto(probabilidades,longMedia,entropia);
 
 			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto, Integer.toString(tamanioPalabra));
 

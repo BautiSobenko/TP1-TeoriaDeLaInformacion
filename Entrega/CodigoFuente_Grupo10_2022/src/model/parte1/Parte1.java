@@ -1,8 +1,8 @@
 package model.parte1;
 
 import model.parte1.FuenteInformacion.FuenteInformacion;
-import model.parte1.ordenCodigo.ordenCodigo;
 import model.utlils.Escritura;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -47,7 +47,6 @@ public class Parte1 {
 
 			if( esMemoriaNula ) {
 				System.out.println("\nFuente de memoria nula\n");
-				ordenCodigo codigo = new ordenCodigo(aparicionesTotales);
 			}
 			else{
 				System.out.println("\nFuente de memoria no nula");

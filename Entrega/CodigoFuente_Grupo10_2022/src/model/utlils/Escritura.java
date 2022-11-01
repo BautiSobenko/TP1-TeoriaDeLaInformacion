@@ -4,6 +4,7 @@ import model.parte2.codigos.Codigo;
 import model.parte2.huffman.Huffman;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Escritura {
 
@@ -110,13 +111,16 @@ public class Escritura {
         }
     }
 
-    public static void resultadoIncisoA(double cantInformacion, double entropia, String tamPalabra){
+    public static void resultadoIncisoA(ArrayList<String> combinaciones, double[] informaciones, double entropia, String tamPalabra){
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/"+tamPalabra+"-caracteres/IncisoA-"+tamPalabra+".txt");
+            fichero = new FileWriter("./resultados/segunda-parte/" + tamPalabra + "-caracteres/IncisoA-" + tamPalabra + ".txt");
             PrintWriter pw = new PrintWriter(fichero);
             pw.println("Inciso A:\n");
-            pw.printf("# Cantidad de informacion: %.4f Unidades de orden 3\n", cantInformacion);
+            pw.println("# Cantidad de informacion: (En unidades de orden 3)");
+            for( int i = 0; i < informaciones.length ; i++){
+                pw.printf("%s: %.3f \n", combinaciones.get(i),informaciones[i]);
+            }
             pw.printf("# Entropia: %.4f Unidades de orden 3\n", entropia);
 
             pw.close();

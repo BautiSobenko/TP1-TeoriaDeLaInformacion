@@ -1,7 +1,6 @@
 package prueba;
 
 import model.parte1.FuenteInformacion.FuenteInformacion;
-import model.parte1.ordenCodigo.ordenCodigo;
 import model.parte2.codigos.Codigo;
 import model.parte2.huffman.Huffman;
 import model.utlils.Escritura;
@@ -143,13 +142,12 @@ public class Main {
                 //Cantidad de informacion
 
                 double[] informaciones = Codigo.calculoInformacion(combinaciones, probabilidades);
-                double cantInformacion = Codigo.cantidadInformacion(informaciones);
 
                 //Entropia
 
                 double entropia = Codigo.calculoEntropia(informaciones, probabilidades);
                 // DESPRINTEAR ESTO
-                Escritura.resultadoIncisoA(cantInformacion, entropia, Integer.toString(tamanioPalabra));
+                Escritura.resultadoIncisoA(combinaciones, informaciones, entropia, Integer.toString(tamanioPalabra));
 
                 //Kraft
 
@@ -162,7 +160,7 @@ public class Main {
 
                 //Condicion codigo compacto
 
-                boolean esCompacto = longMedia <= tamanioPalabra;
+                boolean esCompacto = Codigo.esCompacto(probabilidades,longMedia,entropia);
 
                 Escritura.resultadoIncisoC(kraft, longMedia, esCompacto, Integer.toString(tamanioPalabra));
 
@@ -187,7 +185,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        System.out.printf("Termino la ejecucion del programa. Los resultados se encuentran en la carpeta RESULTADOS \n");
-        System.out.printf("Integrantes:\n ------ Bautista Sobenko \n ------ Rojas Agustin \n ------ Matarazzo Tomas");
+        System.out.print("Termino la ejecucion del programa. Los resultados se encuentran en la carpeta RESULTADOS \n");
+        System.out.print("Integrantes:\n ------ Bautista Sobenko \n ------ Rojas Agustin \n ------ Matarazzo Tomas");
     }
 }

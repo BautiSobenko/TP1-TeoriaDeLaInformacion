@@ -11,6 +11,14 @@ public class Codigo {
         this.codigo = codigo;
     }
 
+    public static boolean esCompacto(float[] probabilidades, double longMedia, double entropia){
+        float nuevaLongMedia = 0;
+
+        for(int i=0;i< probabilidades.length;i++)
+            nuevaLongMedia += probabilidades[i] * Math.log10(1/probabilidades[i]) / Math.log10(3);
+
+        return (entropia <= nuevaLongMedia && longMedia <= nuevaLongMedia);
+    }
 
     public boolean esCodigoBloque(){
         // verifo que cada codigo dentro del array sea del mismo tamano
@@ -112,4 +120,6 @@ public class Codigo {
     public static double redundancia(double rendimiento){
         return 1 - rendimiento;
     }
+
+
 }
