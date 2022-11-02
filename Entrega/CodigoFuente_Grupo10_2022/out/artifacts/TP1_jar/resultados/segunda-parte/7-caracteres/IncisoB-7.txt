@@ -1,8 +1,0 @@
-Inciso B:
-
-# Tipo de codigo obtenido: 
-
-Codigo bloque: true
-Codigo no singular: true
-Codigo univocamente decodificable: true
-Codigo instantaneo: true

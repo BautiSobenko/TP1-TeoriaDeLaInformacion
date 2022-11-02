@@ -82,7 +82,7 @@ public class Parte2 {
 
 			//Condicion codigo compacto
 
-			boolean esCompacto = Codigo.esCompacto(probabilidades,longMedia,entropia);
+			boolean esCompacto = Codigo.esCompacto(probabilidades,tamanioPalabra);
 
 			Escritura.resultadoIncisoC(kraft, longMedia, esCompacto, Integer.toString(tamanioPalabra));
 

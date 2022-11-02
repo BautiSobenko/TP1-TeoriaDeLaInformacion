@@ -1,4 +1,0 @@
-Inciso A:
-
-# Cantidad de informacion: 1246,9812 Unidades de orden 3
-# Entropia: 4,8577 Unidades de orden 3

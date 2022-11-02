@@ -1,4 +1,31 @@
 Inciso A:
 
-# Cantidad de informacion: 82,3241 Unidades de orden 3
+# Cantidad de informacion: (En unidades de orden 3)
+CAC: 2,672 
+BAB: 3,248 
+CCA: 2,741 
+BBC: 2,939 
+CBC: 2,603 
+BCB: 2,912 
+ACB: 3,139 
+ACA: 3,192 
+BAA: 3,372 
+BBB: 3,122 
+CBA: 3,041 
+CCC: 2,312 
+CBB: 3,003 
+ABB: 3,122 
+BCA: 3,258 
+ABC: 3,192 
+BCC: 2,589 
+CCB: 2,703 
+AAB: 3,288 
+CAA: 3,105 
+CAB: 2,996 
+ACC: 2,989 
+BAC: 3,165 
+BBA: 3,210 
+AAA: 3,556 
+AAC: 3,288 
+ABA: 3,570 
 # Entropia: 2,9485 Unidades de orden 3

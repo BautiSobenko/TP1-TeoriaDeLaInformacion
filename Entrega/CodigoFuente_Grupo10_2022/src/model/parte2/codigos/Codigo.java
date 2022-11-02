@@ -11,17 +11,25 @@ public class Codigo {
         this.codigo = codigo;
     }
 
-    public static boolean esCompacto(float[] probabilidades, double longMedia, double entropia){
-        float nuevaLongMedia = 0;
+    public static boolean esCompacto(float[] probabilidades, int tamPalabra){
 
-        for(int i=0;i< probabilidades.length;i++)
-            nuevaLongMedia += probabilidades[i] * Math.log10(1/probabilidades[i]) / Math.log10(3);
+        boolean isCompacto = true;
+        int li;
+        int i = 0;
 
-        return (entropia <= nuevaLongMedia && longMedia <= nuevaLongMedia);
+        while( i < probabilidades.length && isCompacto){
+            li = (int) Math.ceil(Math.log10(1/probabilidades[i]) / Math.log10(3));
+            if( li != tamPalabra )
+                isCompacto = false;
+            i++;
+        }
+
+        return isCompacto;
+
     }
 
     public boolean esCodigoBloque(){
-        // verifo que cada codigo dentro del array sea del mismo tamano
+        // verifico que cada codigo dentro del array sea del mismo tamano
         // si cumple la condicion devuelvo true.
 
         int length = this.codigo.get(0).length();
