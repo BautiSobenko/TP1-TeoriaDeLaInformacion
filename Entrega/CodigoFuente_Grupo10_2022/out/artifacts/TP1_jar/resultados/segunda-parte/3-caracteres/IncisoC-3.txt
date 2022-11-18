@@ -1,0 +1,6 @@
+Inciso C:
+
+# Inecuacion de Kraft: 1,00 <= 1.00 
+# Inecuacion de McMillan: 1,00 <= 1.00 
+# Longitud media del codigo: 3,00 Unidades de orden 3
+# Codigo compacto
