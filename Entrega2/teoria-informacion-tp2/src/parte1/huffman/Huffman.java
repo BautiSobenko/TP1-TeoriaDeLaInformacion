@@ -5,7 +5,7 @@ import java.util.*;
 public class Huffman {
 
     private Nodo root;
-    private Map<String, Integer> frecPal;
+    private final Map<String, Integer> frecPal;
     private final Map<String, String> huffmanCodes;
 
 
@@ -69,6 +69,18 @@ public class Huffman {
         );
 
         return tabla;
+    }
+
+    public Integer longMaxPalabraCod(){
+        int longMax = 0;
+
+        for (Map.Entry<String, String> item : this.huffmanCodes.entrySet()) {
+            if( item.getValue().length() > longMax )
+                longMax = item.getValue().length();
+        }
+
+        return longMax;
+
     }
 
     public Map<String, String> getHuffmanCodes() {

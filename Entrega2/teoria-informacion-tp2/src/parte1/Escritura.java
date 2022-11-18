@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 
 public class Escritura {
 
-    public static void resultadoParte1(Huffman huffman) {
+    public static void resultadoParte1(Huffman huffman, int cantSimbolos,  int longMaxPalabraFuente, int longMaxPalabraCodigo) {
 
         FileWriter fichero = null;
         try {
@@ -18,6 +18,10 @@ public class Escritura {
             //Escritura de tabla de codificacion en archivo binario
 
             StringBuilder tablaCod = huffman.tablaCodificacion();
+
+            pw.write(cantSimbolos);
+            pw.write(longMaxPalabraFuente);
+            pw.write(longMaxPalabraCodigo);
 
             byte data;
             int limite;

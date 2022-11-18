@@ -12,12 +12,15 @@ public class Parte1 {
     public static void main(String[] args) {
         String path = "DatosTP2.txt";
         Map< String, Integer > frecPal = new HashMap<>();
-        int frecTotal = 0;
+        int cantTotalSimbolos = 0;
+        int longMaxPalFuente = 0;
         try {
             Scanner in = new Scanner(new FileReader(path));
             while(in.hasNext()) {
                 String word = in.next();
-                frecTotal++;
+                cantTotalSimbolos++;
+                if( word.length() > longMaxPalFuente )
+                    longMaxPalFuente = word.length();
                 Integer frec = frecPal.get(word);
                 frecPal.put(word, frec != null ? frec + 1 : 1);
             }
@@ -26,16 +29,15 @@ public class Parte1 {
             throw new RuntimeException(e);
         }
 
-        System.out.println(frecTotal);
+        System.out.println(cantTotalSimbolos);
         System.out.println(frecPal.size());
 
         Huffman huffman = new Huffman(frecPal);
         huffman.encode();
-        huffman.getCodigo();
-        Escritura.resultadoParte1(huffman);
+        System.out.println("Long max de palabra fuente: " + longMaxPalFuente);
+        System.out.println("Long max de palabra codigo: " + huffman.longMaxPalabraCod());
+        Escritura.resultadoParte1(huffman, cantTotalSimbolos, longMaxPalFuente, huffman.longMaxPalabraCod());
 
     }
-
-
 
 }
