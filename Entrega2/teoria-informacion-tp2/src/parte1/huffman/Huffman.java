@@ -42,6 +42,7 @@ public class Huffman {
 
         for (Map.Entry<String, Integer> item : this.frecPal.entrySet()) {
             sb.append(huffmanCodes.get(item.getKey()));
+            System.out.println(item.getKey()+": "+ huffmanCodes.get(item.getKey()));
         }
         return sb.toString();
 
