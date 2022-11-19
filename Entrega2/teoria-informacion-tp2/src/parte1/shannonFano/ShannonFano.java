@@ -10,8 +10,8 @@ public class ShannonFano {
     private Arbol arbol = new Arbol();
     private String palabra;
     private Probabilidad prob;
-    private ArrayList<Character> caracteres2;
-    private String[] codigos = new String[30];
+    private ArrayList<String> caracteres2;
+    private String[] codigos = new String[4000];
     private double[] informacion;
     private double[] probabilidades;
     private double[] frecuencias;
@@ -31,7 +31,7 @@ public class ShannonFano {
 
     // Agrega hijo izq y der a Nodo
 
-    public void agregoHijos(Nodo nodo, ArrayList<Character> parteIzq, ArrayList<Character> parteDer){
+    public void agregoHijos(Nodo nodo, ArrayList<String> parteIzq, ArrayList<String> parteDer){
         Nodo nodoIzq = new Nodo();
         Nodo nodoDer = new Nodo();
         nodo.setNodoDer(nodoDer);
@@ -42,10 +42,10 @@ public class ShannonFano {
 
     // Metodo para crear el arbol de caracteres
 
-    public void crearArbol( ArrayList<Character> caracteres, Nodo nodo){
+    public void crearArbol( ArrayList<String> caracteres, Nodo nodo){
         if (caracteres.size() != 1){
-            ArrayList<Character> parteIzq = new ArrayList<>();
-            ArrayList<Character> parteDer = new ArrayList<>();
+            ArrayList<String> parteIzq = new ArrayList<>();
+            ArrayList<String> parteDer = new ArrayList<>();
             double limite = prob.indiceMitadDeProbabilidad(caracteres);
             for (int i = 0; i < caracteres.size(); i++) {
                 if (i < limite) {
@@ -62,7 +62,7 @@ public class ShannonFano {
 
     // Codigo para cada caracter
 
-    public void obtenerCodigo( Character caracter, Nodo nodo, String[] codigo , int i){
+    public void obtenerCodigo( String caracter, Nodo nodo, String[] codigo , int i){
         if (nodo.getCaracteres().size() != 1){
             boolean estaIzq = nodo.getNodoIzq().getCaracteres().contains(caracter);
             if (estaIzq){
@@ -89,7 +89,7 @@ public class ShannonFano {
 
     public void printearResultados(){
         System.out.printf("\n---- CODIGOS SHANNON FANO ----\n\n");
-        System.out.printf("CARACTER ----- PROBABILIDAD ------ CODIGO ----- INFORMACION ----- ENTROPIA TOTAL ----- LONG MEDIA\n");
+        System.out.printf("CARACTER ----- PROBABILIDAD ------ CODIGO ----- INFORMACION ----- ENTROPIA TOTAL ----- LONG MEDIA ---- RENDIMIENTO --- REDUNDANCIA\n");
         this.setInformacion();
         this.setProbabilidades();
         this.setEntropia();
@@ -102,6 +102,9 @@ public class ShannonFano {
             if ( i == 0){
                 System.out.printf("\t %1.3f\t\t\t" , this.entropia);
                 System.out.printf("\t %1.3f\t\t\t" , this.longMedia);
+                System.out.printf("\t %1.3f\t\t\t" , this.getRendimiento());
+                System.out.printf("\t %1.3f\t\t\t" , this.getRedundancia());
+
             }
             else{
                 System.out.printf("\t\t- \t\t\t\t\t- ");
@@ -116,7 +119,7 @@ public class ShannonFano {
     }
 
     public void setInformacion(){
-        Codigo.setCantSimbolos(2);
+        Codigo.setCantSimbolos(68);
         this.informacion = Codigo.calculoInformacion(this.prob.getProbabilidad());
     }
 

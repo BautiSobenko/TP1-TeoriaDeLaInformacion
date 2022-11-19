@@ -69,8 +69,6 @@ public class Parte1 {
         double redundancia = Codigo.redundancia(rendimiento);
         System.out.println(rendimiento);
         System.out.println(redundancia);
-
-
     }
 
 }
