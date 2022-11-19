@@ -1,6 +1,4 @@
-package parte1;
-
-import parte1.huffman.Huffman;
+package parte1.huffman;
 
 import java.util.HashMap;
 import java.util.Map;

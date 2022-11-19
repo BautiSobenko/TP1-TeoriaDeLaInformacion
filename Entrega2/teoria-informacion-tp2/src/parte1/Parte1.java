@@ -1,5 +1,6 @@
 package parte1;
 
+import parte1.huffman.Codigo;
 import parte1.huffman.Huffman;
 
 import java.io.*;

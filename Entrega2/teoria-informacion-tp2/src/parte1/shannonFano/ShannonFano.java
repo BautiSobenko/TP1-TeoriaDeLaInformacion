@@ -1,7 +1,5 @@
 package parte1.shannonFano;
 
-import parte1.Codigo;
-
 import java.util.*;
 
 
