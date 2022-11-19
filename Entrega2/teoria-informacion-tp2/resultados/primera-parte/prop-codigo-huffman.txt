@@ -1,0 +1,3 @@
+Tasa compresion: 0,0000 
+Rendimiento: 0,1638 
+Redundancia: 0,8362 

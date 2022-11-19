@@ -1,6 +1,8 @@
 package parte1;
 
-import java.util.ArrayList;
+import parte1.huffman.Huffman;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class Codigo {
@@ -13,36 +15,34 @@ public class Codigo {
         Codigo.cantSimbolos = cantSimbolos;
     }
 
-    public static double[] probabilidades(Map<String, Integer> frecPal){
-        double[] probabilidades = new double[frecPal.size()];
+    public static Map<String, Double> probabilidades(Map<String, Integer> frecPal){
+        Map<String, Double> prob = new HashMap<>();
 
-        int i = 0;
-
-        for (Map.Entry<String, Integer> item : frecPal.entrySet()) {
-            probabilidades[i++] = (double) item.getValue() / Codigo.cantPalabras;
+        for (Map.Entry<String, Integer> frec : frecPal.entrySet()) {
+            prob.put( frec.getKey() , (double) frec.getValue() / Codigo.cantPalabras );
         }
 
-        return probabilidades;
+        return prob;
     }
 
-    public static double[] calculoInformacion(double[] probabilidades){
+    public static Map<String, Double> calculoInformacion(Map<String, Double> probabilidades){
 
-        double[] informaciones = new double[probabilidades.length];
+        Map<String, Double> informaciones = new HashMap<>();
 
-        int i = 0;
-
-        for ( double probabilidad : probabilidades ) {
-            informaciones[i++] = Math.log10(1 / probabilidad) / Math.log10(Codigo.cantSimbolos);
+        for (Map.Entry<String, Double> prob : probabilidades.entrySet()) {
+            informaciones.put( prob.getKey() , Math.log10(1 / prob.getValue()) / Math.log10(Codigo.cantSimbolos) );
         }
 
         return informaciones;
     }
 
-    public static double calculoEntropia(double[] informaciones, double[] probabilidades){
+    public static double calculoEntropia(Map<String, Double> informaciones, Map<String, Double> probabilidades){
         double entropia = 0;
 
-        for (int i = 0; i < probabilidades.length; i++) {
-            entropia += informaciones[i] * probabilidades[i];
+        for (Map.Entry<String, Double> info : informaciones.entrySet()) {
+
+            entropia += info.getValue() * probabilidades.get( info.getKey() );
+
         }
 
         return entropia;
@@ -56,12 +56,13 @@ public class Codigo {
         return 1 - rendimiento;
     }
 
-    public static double calculoLongMedia(double[] probabilidades, Map<String, Integer> frecPal){
+    public static double calculoLongMedia(Map<String, Double> probabilidades, Huffman huffman){
         double longMedia = 0;
-        int i = 0;
 
-        for (Map.Entry<String, Integer> item : frecPal.entrySet()) {
-            longMedia += probabilidades[i++] * item.getKey().length();
+        Map<String, String> huffmanCodes = huffman.getHuffmanCodes();
+
+        for (Map.Entry<String, Double> prob : probabilidades.entrySet()) {
+            longMedia += prob.getValue() * huffmanCodes.get( prob.getKey() ).length();
         }
 
         return longMedia;

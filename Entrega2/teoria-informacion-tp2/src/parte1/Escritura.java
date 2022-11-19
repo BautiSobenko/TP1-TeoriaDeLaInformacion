@@ -8,12 +8,21 @@ import java.io.PrintWriter;
 
 public class Escritura {
 
-    public static void resultadoParte1(Huffman huffman, int cantSimbolos,  int longMaxPalabraFuente, int longMaxPalabraCodigo) {
+    public static void resultadoParte1(Huffman huffman, int cantSimbolos,  int longMaxPalabraFuente, int longMaxPalabraCodigo, double tasaCompresion, double rendimiento, double redundancia) {
 
         FileWriter fichero = null;
         try {
-            fichero = new FileWriter("./resultados/segunda-parte/compresion.huf");
+            fichero = new FileWriter("./resultados/primera-parte/prop-codigo-huffman.txt");
             PrintWriter pw = new PrintWriter(fichero);
+
+            pw.printf("Tasa compresion: %.4f \n" , tasaCompresion);
+            pw.printf("Rendimiento: %.4f \n" , rendimiento);
+            pw.printf("Redundancia: %.4f \n" , redundancia);
+
+            pw.close();
+
+            fichero = new FileWriter("./resultados/primera-parte/compresion.huf");
+            pw = new PrintWriter(fichero);
 
             //Escritura de tabla de codificacion en archivo binario
 

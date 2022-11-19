@@ -19,24 +19,14 @@ public class Parte1 {
             Scanner in = new Scanner(file);
 
             while(in.hasNext()) {
-                String word = in.nextLine();
-                String[] palabras = word.split(" ");
-                for ( String pal : palabras ) {
-                    cantTotalPalabras++;
-                    if( pal.length() > longMaxPalFuente )
-                        longMaxPalFuente = pal.length();
-
-                    Integer frec = frecPal.get(pal);
-                    frecPal.put(pal, frec != null ? frec + 1 : 1);
-                }
+                String word = in.next();
+                cantTotalPalabras++;
+                if( word.length() > longMaxPalFuente )
+                    longMaxPalFuente = word.length();
+                Integer frec = frecPal.get(word);
+                frecPal.put(word, frec != null ? frec + 1 : 1);
                 for (int i = 0; i < word.length(); i++) {
                     simbolos.add(word.charAt(i));
-                    // Si el carácter en [i] es un espacio (' ') aumentamos el contador
-                    if (Character.isWhitespace(word.charAt(i))){
-                        cantTotalPalabras++;
-                        Integer frec = frecPal.get(" ");
-                        frecPal.put(" ", frec != null ? frec + 1 : 1);
-                    }
                 }
             }
             in.close();
@@ -50,27 +40,38 @@ public class Parte1 {
         System.out.println(simbolos.size());
         int cantSimbolos = simbolos.size();
 
-
         frecPal.forEach( (pal, frec) -> {
             System.out.println(pal + ": " + frec);
         });
+
 
         Huffman huffman = new Huffman(frecPal);
         huffman.encode();
         System.out.println("Long max de palabra fuente: " + longMaxPalFuente);
         System.out.println("Long max de palabra codigo: " + huffman.longMaxPalabraCod());
-        Escritura.resultadoParte1(huffman, cantTotalPalabras, longMaxPalFuente, huffman.longMaxPalabraCod());
 
         Codigo codigo = new Codigo(cantTotalPalabras, cantSimbolos);
 
-        double[] probabilidades = Codigo.probabilidades(frecPal);
-        double[] cantInformaciones = Codigo.calculoInformacion(probabilidades);
-        double entropia = Codigo.calculoEntropia(cantInformaciones, probabilidades);
-        double longMedia = Codigo.calculoLongMedia(probabilidades, frecPal);
+        Map<String, Double> probabilidades = Codigo.probabilidades(frecPal);
+        Map<String, Double> informaciones = Codigo.calculoInformacion(probabilidades);
+        double entropia = Codigo.calculoEntropia(informaciones, probabilidades);
+        double longMedia = Codigo.calculoLongMedia(probabilidades, huffman);
         double rendimiento = Codigo.rendimiento(entropia, longMedia);
         double redundancia = Codigo.redundancia(rendimiento);
-        System.out.println(rendimiento);
-        System.out.println(redundancia);
+
+        Escritura.resultadoParte1(huffman, cantTotalPalabras, longMaxPalFuente, huffman.longMaxPalabraCod(), 0. , rendimiento, redundancia);
+
+        System.out.println("\nRendimiento: " + rendimiento);
+        System.out.println("Redundancia: " +redundancia);
+        System.out.println("Longitud Media: " + longMedia);
+        System.out.println("Entropia: " + entropia);
+        System.out.println("Cantidad de simbolos: " + cantSimbolos);
+        System.out.println("Cantidad de palabras: " + cantTotalPalabras);
+
+
+
+
+
 
 
     }
