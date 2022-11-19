@@ -38,16 +38,6 @@ public class Codigo {
         return informaciones;
     }
 
-    public static double[] calculoInformacion(ArrayList<String> combinaciones, float[] probabilidades){
-        double[] informaciones = new double[combinaciones.size()];
-
-        for (int i = 0; i < probabilidades.length; i++) {
-            informaciones[i] = Math.log10(1 / probabilidades[i]) / Math.log10(Codigo.cantSimbolos);
-        }
-
-        return informaciones;
-    }
-
     public static double calculoEntropia(double[] informaciones, double[] probabilidades){
         double entropia = 0;
 
