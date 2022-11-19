@@ -40,9 +40,7 @@ public class Parte1 {
         System.out.println(simbolos.size());
         int cantSimbolos = simbolos.size();
 
-        frecPal.forEach( (pal, frec) -> {
-            System.out.println(pal + ": " + frec);
-        });
+        frecPal.forEach( (pal, frec) -> System.out.println(pal + ": " + frec));
 
 
         Huffman huffman = new Huffman(frecPal);

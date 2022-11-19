@@ -68,4 +68,19 @@ public class Codigo {
         return longMedia;
     }
 
+    public static int getCantPalabras() {
+        return cantPalabras;
+    }
+
+    public static void setCantPalabras(int cantPalabras) {
+        Codigo.cantPalabras = cantPalabras;
+    }
+
+    public static int getCantSimbolos() {
+        return cantSimbolos;
+    }
+
+    public static void setCantSimbolos(int cantSimbolos) {
+        Codigo.cantSimbolos = cantSimbolos;
+    }
 }
