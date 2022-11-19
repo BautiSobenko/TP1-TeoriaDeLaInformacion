@@ -98,7 +98,6 @@ public class Codigo {
         }
 
         return informaciones;
-
     }
 
     public static double calculoEntropia(double[] informaciones, float[] probabilidades){
