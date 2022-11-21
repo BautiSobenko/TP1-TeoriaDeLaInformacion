@@ -42,7 +42,7 @@ public class Huffman {
 
         for (Map.Entry<String, Integer> item : this.frecPal.entrySet()) {
             sb.append(huffmanCodes.get(item.getKey()));
-            System.out.println(item.getKey()+": "+ huffmanCodes.get(item.getKey()));
+            //System.out.println(item.getKey()+": "+ huffmanCodes.get(item.getKey()));
         }
         return sb.toString();
 
@@ -64,8 +64,9 @@ public class Huffman {
     public StringBuilder tablaCodificacion(){
         StringBuilder tabla = new StringBuilder();
 
-        this.huffmanCodes.forEach((pal, codigo) ->
-                tabla.append(codigo)
+        this.huffmanCodes.forEach((pal, codigo) -> {
+                tabla.append(codigo);
+            }
         );
 
         return tabla;

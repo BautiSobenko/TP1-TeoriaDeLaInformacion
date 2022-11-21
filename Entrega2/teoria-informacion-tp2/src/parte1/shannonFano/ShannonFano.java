@@ -1,5 +1,7 @@
 package parte1.shannonFano;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 
@@ -12,7 +14,6 @@ public class ShannonFano {
     private String[] codigos = new String[4000];
     private double[] informacion;
     private double[] probabilidades;
-    private double[] frecuencias;
     private double longMedia;
     private double entropia;
 
@@ -84,6 +85,17 @@ public class ShannonFano {
     }
 
 
+    public int longMaxPalCodigo(){
+        int max = 0;
+        int i = 0;
+        while( codigos[i] != null ){
+            if( codigos[i].length() > max )
+                max = codigos[i].length();
+            i++;
+        }
+        return max;
+    }
+
 
     public void printearResultados(){
         System.out.printf("\n---- CODIGOS SHANNON FANO ----\n\n");
@@ -110,42 +122,48 @@ public class ShannonFano {
         }
     }
 
-    // Informacion
 
     public double[] getInformacion(){
         return this.informacion;
     }
 
     public void setInformacion(){
-        Codigo.setCantSimbolos(68);
-        this.informacion = Codigo.calculoInformacion(this.prob.getProbabilidad());
+        MetodosCodigoShannon.setCantSimbolos(2);
+        this.informacion = MetodosCodigoShannon.calculoInformacion(this.prob.getProbabilidad());
     }
 
-    // Probabilidades
 
-    public double[] getProbabilidades(){
-        return this.probabilidades;
-    }
     public void setProbabilidades(){
         this.probabilidades = this.prob.getProbabilidad();
     }
 
-    // Entropia
-
-    public double getEntropia() {
-        return entropia;
-    }
 
     public void setEntropia() {
-        this.entropia = Codigo.calculoEntropia(this.informacion , this.probabilidades);
+        this.entropia = MetodosCodigoShannon.calculoEntropia(this.informacion , this.probabilidades);
     }
 
+    public StringBuilder getCodificacion(){
 
-    //Longitud media
+        String path = "DatosTP2.txt";
+        File file = new File(path);
+        StringBuilder code = new StringBuilder();
+        try {
+            Scanner in = new Scanner(file);
+            while(in.hasNext()) {
+                String word = in.next();
+                int index = this.caracteres2.lastIndexOf(word);
+                code.append( this.codigos[index] );
+                //System.out.println("Palabra: " + word + " Codigo: " + this.codigos[index]);
+            }
+            in.close();
 
-    public double getLongMedia(){
-        return this.longMedia;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return code;
+
     }
+
     public void setLongMedia(){
         double acum = 0;
         for (int i = 0 ; i < probabilidades.length ; i++){
@@ -154,17 +172,6 @@ public class ShannonFano {
         this.longMedia = acum;
     }
 
-    //Informacion
-
-    public void setInformacion(double[] informacion) {
-        this.informacion = informacion;
-    }
-
-    public void setProbabilidades(double[] probabilidades) {
-        this.probabilidades = probabilidades;
-    }
-
-    // Rendimiento  y redundancia.
 
     public double getRendimiento(){
         return entropia / this.longMedia;
@@ -174,12 +181,26 @@ public class ShannonFano {
         return  1 - this.getRendimiento();
     }
 
-    public static void main(String[] args) {
-       ShannonFano shannonFano = new ShannonFano("Hola como andas todo re piola");
-       shannonFano.crearArbol(shannonFano.caracteres2 , shannonFano.arbol.getRaiz());
-       shannonFano.generarTodosLosCodigos();
-       shannonFano.printearResultados();
-       shannonFano.setInformacion();
+    public ArrayList<String> getCaracteres2() {
+        return caracteres2;
+    }
+
+    public StringBuilder tablaCodificacion(){
+        StringBuilder tabla = new StringBuilder();
+
+        for ( String code : this.codigos ) {
+            tabla.append(code);
+        }
+
+        return tabla;
+    }
+
+    public String[] getCodigos() {
+        return codigos;
+    }
+
+    public Arbol getArbol() {
+        return arbol;
     }
 }
 
