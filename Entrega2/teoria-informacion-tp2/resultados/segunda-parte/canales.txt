@@ -1,0 +1,50 @@
+++++++++ Canal 1 ++++++++
+Entropia a priori de la fuente: H(A) = 2.170950594454669
+Entropia a priori de la salida del canal: H(B) = 1.5830689115989398
+
+Equivocacion: H(A/B) = 2.1539300273536672
+Informacion Mutua: I(A,B) = 0.01702056710100175
+Entropia Afin: H(A,B) = H(B)+H(A/B) = 3.736998938952607
+
+Equivocacion: H(B/A) = 1.5660483444979383
+Informacion mutua: I(B,A) = 0.017020567101001527
+Entropia Afin: H(A,B) = H(A)+H(B/A) = 3.736998938952607
+
+Entropia a posteriori recibido B1: H(A/b1) = 2.201831389985197
+Entropia a posteriori recibido B2: H(A/b2) = 2.184750159060349
+Entropia a posteriori recibido B3: H(A/b3) = 2.078528649373923
+
+++++++++ Canal 2 ++++++++
+Entropia a priori de la fuente: H(A) = 1.9483888680173398
+Entropia a priori de la salida del canal: H(B) = 1.9925638252270401
+
+Equivocacion: H(A/B) = 1.9154523247125166
+Informacion Mutua: I(A,B) = 0.03293654330482321
+Entropia Afin: H(A,B) = H(B)+H(A/B) = 3.9080161499395567
+
+Equivocacion: H(B/A) = 1.9596272819222167
+Informacion mutua: I(B,A) = 0.03293654330482343
+Entropia Afin: H(A,B) = H(A)+H(B/A) = 3.9080161499395567
+
+Entropia a posteriori recibido B1: H(A/b1) = 1.9245228831570855
+Entropia a posteriori recibido B2: H(A/b2) = 1.933910907854889
+Entropia a posteriori recibido B3: H(A/b3) = 1.9853084969473356
+Entropia a posteriori recibido B4: H(A/b4) = 1.8202933635285066
+
+++++++++ Canal 3 ++++++++
+Entropia a priori de la fuente: H(A) = 2.5272504354354925
+Entropia a priori de la salida del canal: H(B) = 1.9946871580634902
+
+Equivocacion: H(A/B) = 2.4959649968050366
+Informacion Mutua: I(A,B) = 0.031285438630455964
+Entropia Afin: H(A,B) = H(B)+H(A/B) = 4.490652154868527
+
+Equivocacion: H(B/A) = 1.9634017194330342
+Informacion mutua: I(B,A) = 0.031285438630455964
+Entropia Afin: H(A,B) = H(A)+H(B/A) = 4.490652154868527
+
+Entropia a posteriori recibido B1: H(A/b1) = 2.4762705672594274
+Entropia a posteriori recibido B2: H(A/b2) = 2.5259467148838954
+Entropia a posteriori recibido B3: H(A/b3) = 2.539386225516601
+Entropia a posteriori recibido B4: H(A/b4) = 2.4290485097656185
+
