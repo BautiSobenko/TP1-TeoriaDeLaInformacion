@@ -1,5 +1,7 @@
 package parte1.huffman;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Huffman {
@@ -38,13 +40,24 @@ public class Huffman {
     }
 
     public String getCodigo(){
-        StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<String, Integer> item : this.frecPal.entrySet()) {
-            sb.append(huffmanCodes.get(item.getKey()));
-            //System.out.println(item.getKey()+": "+ huffmanCodes.get(item.getKey()));
+        String path = "DatosTP2.txt";
+        File file = new File(path);
+        StringBuilder code = new StringBuilder();
+        try {
+            Scanner in = new Scanner(file);
+            while(in.hasNext()) {
+                String word = in.next();
+                code.append(huffmanCodes.get(word));
+                System.out.println(word + " -> " +huffmanCodes.get(word));
+            }
+            in.close();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        return sb.toString();
+
+        return code.toString();
 
     }
 

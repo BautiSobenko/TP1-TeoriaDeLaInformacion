@@ -142,7 +142,7 @@ public class ShannonFano {
         this.entropia = MetodosCodigoShannon.calculoEntropia(this.informacion , this.probabilidades);
     }
 
-    public StringBuilder getCodificacion(){
+    public String getCodificacion(){
 
         String path = "DatosTP2.txt";
         File file = new File(path);
@@ -160,7 +160,7 @@ public class ShannonFano {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return code;
+        return code.toString();
 
     }
 

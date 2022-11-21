@@ -131,7 +131,7 @@ public class Escritura {
 
             //Escritura de codificacion del archivo original en archivo binario
 
-            StringBuilder codigo = shannonFano.getCodificacion();
+            String codigo = shannonFano.getCodificacion();
 
             for (int i = 0; i < codigo.length(); i++) {
                 if (i + 8 <= codigo.length())
