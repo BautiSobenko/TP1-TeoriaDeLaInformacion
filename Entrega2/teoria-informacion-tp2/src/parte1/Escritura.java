@@ -1,6 +1,7 @@
 package parte1;
 
 import parte1.huffman.Huffman;
+import parte1.shannonFano.ShannonFano;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -78,6 +79,39 @@ public class Escritura {
                 //Print en file binario del octeto
                 pw.write(data);
 
+            }
+
+            pw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void resultadosShannonFano(ShannonFano shannon) {
+
+        FileWriter fichero = null;
+        try {
+            fichero = new FileWriter("./resultados/primera-parte/shannonFano.txt");
+            PrintWriter pw = new PrintWriter(fichero);
+            pw.printf("\n---- CODIGOS SHANNON FANO ----\n\n");
+            pw.printf("CARACTER -----     PROBABILIDAD     ------     CODIGO     -----     INFORMACION     -----     ENTROPIA TOTAL     -----     LONG MEDIA     ----     RENDIMIENTO     --- REDUNDANCIA\n");
+
+            for (int i = 0 ; i < shannon.getCaracteres2().size() ; i++){
+                pw.printf("\n- " + shannon.getCaracteres2().get(i).toString()+" -\t\t\t");
+                pw.printf("%1.3f\t\t\t\t",shannon.getProb().getCaracXProbabilidad().get(shannon.getCaracteres2().get(i)));
+                pw.printf("%s " , shannon.getCodigos()[i]);
+                pw.printf("\t\t\t %5.3f\t\t"      , shannon.getInformacion()[i]);
+                if ( i == 0){
+                    pw.printf("\t %1.3f\t\t\t" , shannon.getEntropia());
+                    pw.printf("\t %1.3f\t\t" , shannon.getLongMedia());
+                    pw.printf("\t %1.3f" , shannon.getRendimiento());
+                    pw.printf("\t\t %1.3f" , shannon.getRedundancia());
+
+                }
+                else{
+                    pw.printf("\t\t- \t\t\t\t\t- ");
+                }
             }
 
             pw.close();

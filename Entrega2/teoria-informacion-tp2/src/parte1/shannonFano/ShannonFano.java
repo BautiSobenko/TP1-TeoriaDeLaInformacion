@@ -1,5 +1,7 @@
 package parte1.shannonFano;
 
+import parte1.Escritura;
+
 import java.util.*;
 
 
@@ -40,21 +42,21 @@ public class ShannonFano {
 
     // Metodo para crear el arbol de caracteres
 
-    public void crearArbol( ArrayList<String> caracteres, Nodo nodo){
-        if (caracteres.size() != 1){
+    public void crearArbol( Nodo nodo){
+        if (nodo.getCaracteres().size() != 1){
             ArrayList<String> parteIzq = new ArrayList<>();
             ArrayList<String> parteDer = new ArrayList<>();
-            double limite = prob.indiceMitadDeProbabilidad(caracteres);
-            for (int i = 0; i < caracteres.size(); i++) {
+            double limite = prob.indiceMitadDeProbabilidad(nodo.getCaracteres());
+            for (int i = 0; i < nodo.getCaracteres().size(); i++) {
                 if (i < limite) {
-                    parteIzq.add(caracteres.get(i));
+                    parteIzq.add(nodo.getCaracteres().get(i));
                 } else {
-                    parteDer.add(caracteres.get(i));
+                    parteDer.add(nodo.getCaracteres().get(i));
                 }
             }
             agregoHijos(nodo,parteIzq,parteDer);
-            crearArbol(parteIzq , nodo.getNodoIzq());
-            crearArbol(parteDer,  nodo.getNodoDer());
+            crearArbol(nodo.getNodoIzq());
+            crearArbol(nodo.getNodoDer());
         }
     }
 
@@ -117,7 +119,7 @@ public class ShannonFano {
     }
 
     public void setInformacion(){
-        Codigo.setCantSimbolos(68);
+        Codigo.setCantSimbolos(2);
         this.informacion = Codigo.calculoInformacion(this.prob.getProbabilidad());
     }
 
@@ -146,6 +148,7 @@ public class ShannonFano {
     public double getLongMedia(){
         return this.longMedia;
     }
+
     public void setLongMedia(){
         double acum = 0;
         for (int i = 0 ; i < probabilidades.length ; i++){
@@ -176,10 +179,53 @@ public class ShannonFano {
 
     public static void main(String[] args) {
        ShannonFano shannonFano = new ShannonFano("Hola como andas todo re piola");
-       shannonFano.crearArbol(shannonFano.caracteres2 , shannonFano.arbol.getRaiz());
+       shannonFano.crearArbol( shannonFano.arbol.getRaiz());
        shannonFano.generarTodosLosCodigos();
        shannonFano.printearResultados();
        shannonFano.setInformacion();
+        Escritura.resultadosShannonFano(shannonFano);
     }
+
+    public ArrayList<String> getCaracteres2() {
+        return caracteres2;
+    }
+
+    public void setCaracteres2(ArrayList<String> caracteres2) {
+        this.caracteres2 = caracteres2;
+    }
+
+    public String[] getCodigos() {
+        return codigos;
+    }
+
+    public void setCodigos(String[] codigos) {
+        this.codigos = codigos;
+    }
+
+    public Probabilidad getProb() {
+        return prob;
+    }
+
+    public void setProb(Probabilidad prob) {
+        this.prob = prob;
+    }
+
+    public double[] getFrecuencias() {
+        return frecuencias;
+    }
+
+    public void setFrecuencias(double[] frecuencias) {
+        this.frecuencias = frecuencias;
+    }
+
+    public void setLongMedia(double longMedia) {
+        this.longMedia = longMedia;
+    }
+
+    public void setEntropia(double entropia) {
+        this.entropia = entropia;
+    }
+
+
 }
 
