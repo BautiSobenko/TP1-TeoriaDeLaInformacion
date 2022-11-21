@@ -17,9 +17,8 @@ public class ShannonFano {
     private double longMedia;
     private double entropia;
 
-    public ShannonFano(String palabra) {
-        this.palabra = palabra;
-        this.prob = new Probabilidad(this.palabra);
+    public ShannonFano() {
+        this.prob = new Probabilidad();
         this.caracteres2 = this.prob.getCaracteres();
 
         // Creo nodo raiz
@@ -201,6 +200,26 @@ public class ShannonFano {
 
     public Arbol getArbol() {
         return arbol;
+    }
+
+    public String getPalabra() {
+        return palabra;
+    }
+
+    public Probabilidad getProb() {
+        return prob;
+    }
+
+    public double[] getProbabilidades() {
+        return probabilidades;
+    }
+
+    public double getLongMedia() {
+        return longMedia;
+    }
+
+    public double getEntropia() {
+        return entropia;
     }
 }
 

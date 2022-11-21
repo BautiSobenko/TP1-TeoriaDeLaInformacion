@@ -65,6 +65,8 @@ public class MetodosCodigoShannon {
         File fileShannon = new File("resultados/primera-parte/compresion.fan");
         double tamShannon = fileShannon.length();
 
+        System.out.println("HSANOON" + tamShannon);
+
         return tamOriginal / tamShannon;
 
     }

@@ -1,6 +1,8 @@
 package parte1.utils;
 
 import parte1.huffman.Huffman;
+import parte1.huffman.MetodosCodigoHuffman;
+import parte1.shannonFano.MetodosCodigoShannon;
 import parte1.shannonFano.ShannonFano;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 public class Escritura {
 
-    public static void resultadoParte1Huffman(Huffman huffman, double tasaCompresion, double rendimiento, double redundancia) {
+    public static void resultadoParte1Huffman(Huffman huffman, int cantSimbolos, int longMaxPalFuente, int longMaxPalCodigo, double tasaCompresion, double rendimiento, double redundancia) {
 
         FileWriter fichero = null;
         try {
@@ -19,6 +21,10 @@ public class Escritura {
             pw.printf("Tasa compresion: %.4f \n" , tasaCompresion);
             pw.printf("Rendimiento: %.4f \n" , rendimiento);
             pw.printf("Redundancia: %.4f \n" , redundancia);
+            pw.printf("Cantidad de simbolos: %d \n", cantSimbolos);
+            pw.printf("Longitud maxima de palabra fuente: %d \n", longMaxPalFuente);
+            pw.printf("Longitud maxima de palabra codigo: %d \n", longMaxPalCodigo );
+
 
             pw.close();
 
@@ -86,7 +92,7 @@ public class Escritura {
         }
     }
 
-    public static void resultadosParte1Shannon(ShannonFano shannonFano, double tasaCompresion, double rendimiento, double redundancia ){
+    public static void resultadosParte1Shannon(ShannonFano shannonFano,int cantSimbolos, int longMaxPalFuente, int longMaxPalCodigo, double tasaCompresion, double rendimiento, double redundancia ){
 
         FileWriter fichero = null;
         try {
@@ -96,6 +102,9 @@ public class Escritura {
             pw.printf("Tasa compresion: %.4f \n" , tasaCompresion);
             pw.printf("Rendimiento: %.4f \n" , rendimiento);
             pw.printf("Redundancia: %.4f \n" , redundancia);
+            pw.printf("Cantidad de simbolos: %d\n", cantSimbolos);
+            pw.printf("Longitud maxima de palabra fuente: %d\n", longMaxPalFuente);
+            pw.printf("Longitud maxima de palabra codigo: %d\n", longMaxPalCodigo );
 
             pw.close();
 

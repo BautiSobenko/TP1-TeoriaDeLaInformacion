@@ -3,6 +3,7 @@ package parte1;
 import parte1.huffman.MetodosCodigoHuffman;
 import parte1.huffman.Huffman;
 import parte1.shannonFano.MetodosCodigoShannon;
+import parte1.shannonFano.Probabilidad;
 import parte1.shannonFano.ShannonFano;
 import parte1.utils.Escritura;
 
@@ -40,7 +41,6 @@ public class Parte1 {
         }
 
         int cantSimbolos = simbolos.size();
-
         //frecPal.forEach( (pal, frec) -> System.out.println(pal + ": " + frec));
 
 
@@ -55,9 +55,10 @@ public class Parte1 {
         double rendimiento = MetodosCodigoHuffman.rendimiento(entropia, longMedia);
         double redundancia = MetodosCodigoHuffman.redundancia(rendimiento);
 
-        Escritura.resultadoParte1Huffman(huffman, MetodosCodigoHuffman.getTasaCompresion() , rendimiento, redundancia);
 
-        ShannonFano shannonFano = new ShannonFano("Hola como andas todo re piola");
+        Escritura.resultadoParte1Huffman(huffman,cantSimbolos, longMaxPalFuente, huffman.longMaxPalabraCod(), MetodosCodigoHuffman.getTasaCompresion() , rendimiento, redundancia);
+
+        ShannonFano shannonFano = new ShannonFano();
         shannonFano.crearArbol(shannonFano.getCaracteres2() , shannonFano.getArbol().getRaiz());
         shannonFano.generarTodosLosCodigos();
         shannonFano.setInformacion();
@@ -65,7 +66,7 @@ public class Parte1 {
         shannonFano.setProbabilidades();
         shannonFano.setEntropia();
         shannonFano.setLongMedia();
-        Escritura.resultadosParte1Shannon(shannonFano, MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
+        Escritura.resultadosParte1Shannon(shannonFano, Probabilidad.getCantSimbolos(), Probabilidad.getLongMaxPalFuente(), shannonFano.longMaxPalCodigo(), MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
 
 
 

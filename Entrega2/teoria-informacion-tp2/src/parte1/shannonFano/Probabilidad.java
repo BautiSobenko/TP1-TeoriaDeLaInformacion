@@ -7,14 +7,11 @@ import java.util.*;
 public class Probabilidad {
 
     Map<String,Double> caracXProbabilidad = new TreeMap<String, Double>();
-    String palabra;
     private int cantTotalPalabras = 0;
     private static int longMaxPalFuente;
     private static int cantSimbolos;
 
-    public Probabilidad( String palabra) {
-        this.palabra = palabra;
-//        this.setcaracXProbabilidad();
+    public Probabilidad() {
         this.lecturaDelArchivo();
     }
 
@@ -99,5 +96,9 @@ public class Probabilidad {
 
     public static int getLongMaxPalFuente() {
         return longMaxPalFuente;
+    }
+
+    public int getCantTotalPalabras() {
+        return cantTotalPalabras;
     }
 }
