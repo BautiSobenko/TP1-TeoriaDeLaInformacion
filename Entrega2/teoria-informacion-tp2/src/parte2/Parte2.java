@@ -1,13 +1,29 @@
 package parte2;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import static java.lang.Math.log;
 
 public class Parte2 {
 
     public static void main(String[] args) {
-        ejecutaCanalUno();
-        ejecutaCanalDos();
-        ejecutaCanalTres();
+
+        FileWriter fichero = null;
+        try {
+            fichero = new FileWriter("./resultados/segunda-parte/canales.txt");
+            PrintWriter pw = new PrintWriter(fichero);
+
+            ejecutaCanalUno(pw);
+            ejecutaCanalDos(pw);
+            ejecutaCanalTres(pw);
+
+            pw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
         public static void cargaDatosCanalUno(double[] A, double[][] matrizSaliendoai){
 
@@ -225,7 +241,7 @@ public class Parte2 {
     }
 
 
-    public static void ejecutaCanalUno() {
+    public static void ejecutaCanalUno(PrintWriter pw) {
 
         double[] A = new double[5];
         double[][] matrizSaliendoai = new double[5][3];
@@ -241,25 +257,25 @@ public class Parte2 {
         infoMutuaB = calculaEntropiaAPriori(B) - calculaEquivocacionB(matrizSaliendoai,1,A);
         entropiaAFinB = calculaEntropiaAPriori(A) + calculaEquivocacionB(matrizSaliendoai,1,A);
 
-        System.out.println("++++++++ Canal 1 ++++++++");
-        System.out.println("Entropia a posteriori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
-        System.out.println("Entropia a posteriori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
-        System.out.println("");
-        System.out.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,1,B));
-        System.out.println("Informacion Mutua: I(A,B) = " + infoMutua);
-        System.out.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
-        System.out.println("");
-        System.out.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,1,A));
-        System.out.println("Informacion mutua: I(B,A) = " + infoMutuaB);
-        System.out.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
-        System.out.println("");
-        System.out.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,1));
-        System.out.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,1));
-        System.out.println("Entropia a posteriori recibido B1: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,1));
-        System.out.println("");
+            pw.println("++++++++ Canal 1 ++++++++");
+            pw.println("Entropia a priori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
+            pw.println("Entropia a priori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
+            pw.println("");
+            pw.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,1,B));
+            pw.println("Informacion Mutua: I(A,B) = " + infoMutua);
+            pw.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
+            pw.println("");
+            pw.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,1,A));
+            pw.println("Informacion mutua: I(B,A) = " + infoMutuaB);
+            pw.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
+            pw.println("");
+            pw.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,1));
+            pw.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,1));
+            pw.println("Entropia a posteriori recibido B3: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,1));
+            pw.println("");
     }
 
-    public static void ejecutaCanalDos() {
+    public static void ejecutaCanalDos(PrintWriter pw) {
 
         double[] A = new double[4];
         double[][] matrizSaliendoai = new double[4][4];
@@ -275,26 +291,26 @@ public class Parte2 {
         infoMutuaB = calculaEntropiaAPriori(B) - calculaEquivocacionB(matrizSaliendoai,2,A);
         entropiaAFinB = calculaEntropiaAPriori(A) + calculaEquivocacionB(matrizSaliendoai,2,A);
 
-        System.out.println("++++++++ Canal 2 ++++++++");
-        System.out.println("Entropia a posteriori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
-        System.out.println("Entropia a posteriori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
-        System.out.println("");
-        System.out.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,2,B));
-        System.out.println("Informacion Mutua: I(A,B) = " + infoMutua);
-        System.out.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
-        System.out.println("");
-        System.out.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,2,A));
-        System.out.println("Informacion mutua: I(B,A) = " + infoMutuaB);
-        System.out.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
-        System.out.println("");
-        System.out.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,2));
-        System.out.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,2));
-        System.out.println("Entropia a posteriori recibido B1: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,2));
-        System.out.println("Entropia a posteriori recibido B1: H(A/b4) = "+calculaEntropiaPosteriori(matrizSaliendoBj,4,2));
-        System.out.println("");
+            pw.println("++++++++ Canal 2 ++++++++");
+            pw.println("Entropia a priori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
+            pw.println("Entropia a priori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
+            pw.println("");
+            pw.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,2,B));
+            pw.println("Informacion Mutua: I(A,B) = " + infoMutua);
+            pw.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
+            pw.println("");
+            pw.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,2,A));
+            pw.println("Informacion mutua: I(B,A) = " + infoMutuaB);
+            pw.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
+            pw.println("");
+            pw.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,2));
+            pw.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,2));
+            pw.println("Entropia a posteriori recibido B3: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,2));
+            pw.println("Entropia a posteriori recibido B4: H(A/b4) = "+calculaEntropiaPosteriori(matrizSaliendoBj,4,2));
+            pw.println("");
     }
 
-    public static void ejecutaCanalTres() {
+    public static void ejecutaCanalTres(PrintWriter pw) {
 
         double[] A = new double[6];
         double[][] matrizSaliendoai = new double[6][4];
@@ -310,23 +326,23 @@ public class Parte2 {
         infoMutuaB = calculaEntropiaAPriori(B) - calculaEquivocacionB(matrizSaliendoai,3,A);
         entropiaAFinB = calculaEntropiaAPriori(A) + calculaEquivocacionB(matrizSaliendoai,3,A);
 
-        System.out.println("++++++++ Canal 3 ++++++++");
-        System.out.println("Entropia a posteriori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
-        System.out.println("Entropia a posteriori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
-        System.out.println("");
-        System.out.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,3,B));
-        System.out.println("Informacion Mutua: I(A,B) = " + infoMutua);
-        System.out.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
-        System.out.println("");
-        System.out.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,3,A));
-        System.out.println("Informacion mutua: I(B,A) = " + infoMutuaB);
-        System.out.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
-        System.out.println("");
-        System.out.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,3));
-        System.out.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,3));
-        System.out.println("Entropia a posteriori recibido B1: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,3));
-        System.out.println("Entropia a posteriori recibido B1: H(A/b4) = "+calculaEntropiaPosteriori(matrizSaliendoBj,4,3));
-        System.out.println("");
+            pw.println("++++++++ Canal 3 ++++++++");
+            pw.println("Entropia a priori de la fuente: H(A) = " + calculaEntropiaAPriori(A));
+            pw.println("Entropia a priori de la salida del canal: H(B) = "+calculaEntropiaAPriori(B));
+            pw.println("");
+            pw.println("Equivocacion: H(A/B) = "+calculaEquivocacion(matrizSaliendoBj,3,B));
+            pw.println("Informacion Mutua: I(A,B) = " + infoMutua);
+            pw.println("Entropia Afin: H(A,B) = H(B)+H(A/B) = "+  entropiaAfin);
+            pw.println("");
+            pw.println("Equivocacion: H(B/A) = "+calculaEquivocacionB(matrizSaliendoai,3,A));
+            pw.println("Informacion mutua: I(B,A) = " + infoMutuaB);
+            pw.println("Entropia Afin: H(A,B) = H(A)+H(B/A) = " + entropiaAFinB);
+            pw.println("");
+            pw.println("Entropia a posteriori recibido B1: H(A/b1) = "+calculaEntropiaPosteriori(matrizSaliendoBj,1,3));
+            pw.println("Entropia a posteriori recibido B2: H(A/b2) = "+calculaEntropiaPosteriori(matrizSaliendoBj,2,3));
+            pw.println("Entropia a posteriori recibido B3: H(A/b3) = "+calculaEntropiaPosteriori(matrizSaliendoBj,3,3));
+            pw.println("Entropia a posteriori recibido B4: H(A/b4) = "+calculaEntropiaPosteriori(matrizSaliendoBj,4,3));
+            pw.println("");
     }
 
 }
