@@ -1,7 +1,10 @@
 package parte1;
 
-import parte1.huffman.Codigo;
+import parte1.huffman.MetodosCodigoHuffman;
 import parte1.huffman.Huffman;
+import parte1.shannonFano.MetodosCodigoShannon;
+import parte1.shannonFano.ShannonFano;
+import parte1.utils.Escritura;
 
 import java.io.*;
 import java.util.*;
@@ -36,39 +39,33 @@ public class Parte1 {
             throw new RuntimeException(e);
         }
 
-        System.out.println(cantTotalPalabras);
-        simbolos.forEach(System.out::println);
-        System.out.println(simbolos.size());
         int cantSimbolos = simbolos.size();
 
-        frecPal.forEach( (pal, frec) -> System.out.println(pal + ": " + frec));
+        //frecPal.forEach( (pal, frec) -> System.out.println(pal + ": " + frec));
 
 
         Huffman huffman = new Huffman(frecPal);
         huffman.encode();
-        System.out.println("Long max de palabra fuente: " + longMaxPalFuente);
-        System.out.println("Long max de palabra codigo: " + huffman.longMaxPalabraCod());
+        MetodosCodigoHuffman codigo = new MetodosCodigoHuffman(cantTotalPalabras, cantSimbolos);
 
-        Codigo codigo = new Codigo(cantTotalPalabras, cantSimbolos);
+        Map<String, Double> probabilidades = MetodosCodigoHuffman.probabilidades(frecPal);
+        Map<String, Double> informaciones = MetodosCodigoHuffman.calculoInformacion(probabilidades);
+        double entropia = MetodosCodigoHuffman.calculoEntropia(informaciones, probabilidades);
+        double longMedia = MetodosCodigoHuffman.calculoLongMedia(probabilidades, huffman);
+        double rendimiento = MetodosCodigoHuffman.rendimiento(entropia, longMedia);
+        double redundancia = MetodosCodigoHuffman.redundancia(rendimiento);
 
-        Map<String, Double> probabilidades = Codigo.probabilidades(frecPal);
-        Map<String, Double> informaciones = Codigo.calculoInformacion(probabilidades);
-        double entropia = Codigo.calculoEntropia(informaciones, probabilidades);
-        double longMedia = Codigo.calculoLongMedia(probabilidades, huffman);
-        double rendimiento = Codigo.rendimiento(entropia, longMedia);
-        double redundancia = Codigo.redundancia(rendimiento);
+        Escritura.resultadoParte1Huffman(huffman, MetodosCodigoHuffman.getTasaCompresion() , rendimiento, redundancia);
 
-        Escritura.resultadoParte1(huffman, cantTotalPalabras, longMaxPalFuente, huffman.longMaxPalabraCod(), 0. , rendimiento, redundancia);
-
-        System.out.println("\nRendimiento: " + rendimiento);
-        System.out.println("Redundancia: " +redundancia);
-        System.out.println("Longitud Media: " + longMedia);
-        System.out.println("Entropia: " + entropia);
-        System.out.println("Cantidad de simbolos: " + cantSimbolos);
-        System.out.println("Cantidad de palabras: " + cantTotalPalabras);
-
-
-
+        ShannonFano shannonFano = new ShannonFano("Hola como andas todo re piola");
+        shannonFano.crearArbol(shannonFano.getCaracteres2() , shannonFano.getArbol().getRaiz());
+        shannonFano.generarTodosLosCodigos();
+        shannonFano.setInformacion();
+        shannonFano.setInformacion();
+        shannonFano.setProbabilidades();
+        shannonFano.setEntropia();
+        shannonFano.setLongMedia();
+        Escritura.resultadosParte1Shannon(shannonFano, MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
 
 
 

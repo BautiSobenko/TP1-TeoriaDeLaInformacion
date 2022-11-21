@@ -1,23 +1,24 @@
 package parte1.huffman;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Codigo {
+public class MetodosCodigoHuffman {
 
     private static int cantPalabras;
     private static int cantSimbolos;
 
-    public Codigo(int cantPalabras, int cantSimbolos) {
-        Codigo.cantPalabras = cantPalabras;
-        Codigo.cantSimbolos = cantSimbolos;
+    public MetodosCodigoHuffman(int cantPalabras, int cantSimbolos) {
+        MetodosCodigoHuffman.cantPalabras = cantPalabras;
+        MetodosCodigoHuffman.cantSimbolos = cantSimbolos;
     }
 
     public static Map<String, Double> probabilidades(Map<String, Integer> frecPal){
         Map<String, Double> prob = new HashMap<>();
 
         for (Map.Entry<String, Integer> frec : frecPal.entrySet()) {
-            prob.put( frec.getKey() , (double) frec.getValue() / Codigo.cantPalabras );
+            prob.put( frec.getKey() , (double) frec.getValue() / MetodosCodigoHuffman.cantPalabras );
         }
 
         return prob;
@@ -28,7 +29,7 @@ public class Codigo {
         Map<String, Double> informaciones = new HashMap<>();
 
         for (Map.Entry<String, Double> prob : probabilidades.entrySet()) {
-            informaciones.put( prob.getKey() , Math.log10(1 / prob.getValue()) / Math.log10(Codigo.cantSimbolos) );
+            informaciones.put( prob.getKey() , Math.log10(1 / prob.getValue()) / Math.log10(2) );
         }
 
         return informaciones;
@@ -66,12 +67,24 @@ public class Codigo {
         return longMedia;
     }
 
+    public static double getTasaCompresion(){
+
+        File fileOriginal = new File("DatosTP2.txt");
+        double tamOriginal = fileOriginal.length();
+
+        File fileHuffman = new File("resultados/primera-parte/compresion.huf");
+        double tamHuffman = fileHuffman.length();
+
+        return tamOriginal / tamHuffman;
+
+    }
+
     public static int getCantPalabras() {
         return cantPalabras;
     }
 
     public static void setCantPalabras(int cantPalabras) {
-        Codigo.cantPalabras = cantPalabras;
+        MetodosCodigoHuffman.cantPalabras = cantPalabras;
     }
 
     public static int getCantSimbolos() {
@@ -79,6 +92,6 @@ public class Codigo {
     }
 
     public static void setCantSimbolos(int cantSimbolos) {
-        Codigo.cantSimbolos = cantSimbolos;
+        MetodosCodigoHuffman.cantSimbolos = cantSimbolos;
     }
 }

@@ -5,10 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Probabilidad {
+
     Map<String,Double> caracXProbabilidad = new TreeMap<String, Double>();
     String palabra;
-    double [] frecuencias;
     private int cantTotalPalabras = 0;
+    private static int longMaxPalFuente;
+    private static int cantSimbolos;
 
     public Probabilidad( String palabra) {
         this.palabra = palabra;
@@ -20,7 +22,7 @@ public class Probabilidad {
         String path = "DatosTP2.txt";
         File file = new File(path);
         Set<Character> simbolos = new HashSet<>();
-        int longMaxPalFuente = 0;
+        longMaxPalFuente = 0;
         try {
             Scanner in = new Scanner(file);
             while(in.hasNext()) {
@@ -35,6 +37,7 @@ public class Probabilidad {
                 }
                 this.caracXProbabilidad = MapUtil.sortByValue(this.caracXProbabilidad);
             }
+            Probabilidad.cantSimbolos = simbolos.size();
             in.close();
             setFrecuencias(new ArrayList<>(this.caracXProbabilidad.values()));
             caracXProbabilidad.replaceAll( (key,value) -> value / cantTotalPalabras);
@@ -43,23 +46,6 @@ public class Probabilidad {
         }
     }
 
-    // Calculos frecuencias y dps probabilidad para cada caracter
-
-//    public void setcaracXProbabilidad() {
-////        for (int i = 0; i < this.palabra.length(); i++) {
-////            char caracter = this.palabra.charAt(i);
-////            double prob = !this.caracXProbabilidad.containsKey(caracter) ? 0: this.caracXProbabilidad.get(caracter);
-////            this.caracXProbabilidad.put(caracter,prob + 1.);
-////            //Esto ordena por valor
-////            this.caracXProbabilidad = MapUtil.sortByValue(this.caracXProbabilidad);
-////        }
-////        //Guardo frecuencias y seteo probabilidades
-////        setFrecuencias( new ArrayList<>(this.caracXProbabilidad.values()));
-////        caracXProbabilidad.replaceAll( (key,value) -> value / this.palabra.length());
-////        System.out.printf(caracXProbabilidad.toString());
-//
-//    }
-
     // Cant de elementos que se recorre por grupo
     public double indiceMitadDeProbabilidad(ArrayList<String> caracteres){
         double probTotal = 0;
@@ -67,7 +53,7 @@ public class Probabilidad {
         int i = 0;
 
         for (String caracter : caracteres) {
-            System.out.printf("%10f",this.caracXProbabilidad.get(caracter));
+            //System.out.printf("%10f",this.caracXProbabilidad.get(caracter));
             probTotal += this.caracXProbabilidad.get(caracter);
         }
 
@@ -78,6 +64,10 @@ public class Probabilidad {
             i++;
         }
         return i;
+    }
+
+    public static int getCantSimbolos() {
+        return cantSimbolos;
     }
 
     // Calculos auxiliares
@@ -107,8 +97,7 @@ public class Probabilidad {
         return caracXProbabilidad;
     }
 
-    public double[] getFrecuencias() {
-        return frecuencias;
+    public static int getLongMaxPalFuente() {
+        return longMaxPalFuente;
     }
-
 }

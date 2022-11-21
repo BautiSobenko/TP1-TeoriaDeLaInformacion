@@ -1,29 +1,19 @@
 package parte1.shannonFano;
 
+import java.io.File;
 import java.util.Map;
 
 
-public class Codigo {
+public class MetodosCodigoShannon {
 
     private static int cantPalabras;
     private static int cantSimbolos;
 
-    public Codigo(int cantPalabras, int cantSimbolos) {
-        Codigo.cantPalabras = cantPalabras;
-        Codigo.cantSimbolos = cantSimbolos;
+    public MetodosCodigoShannon(int cantPalabras, int cantSimbolos) {
+        MetodosCodigoShannon.cantPalabras = cantPalabras;
+        MetodosCodigoShannon.cantSimbolos = cantSimbolos;
     }
 
-    public static double[] probabilidades(Map<String, Integer> frecPal){
-        double[] probabilidades = new double[frecPal.size()];
-
-        int i = 0;
-
-        for (Map.Entry<String, Integer> item : frecPal.entrySet()) {
-            probabilidades[i++] = (double) item.getValue() / Codigo.cantPalabras;
-        }
-
-        return probabilidades;
-    }
 
     public static double[] calculoInformacion(double[] probabilidades){
 
@@ -32,7 +22,7 @@ public class Codigo {
         int i = 0;
 
         for ( double probabilidad : probabilidades ) {
-            informaciones[i++] = Math.log10(1 / probabilidad) / Math.log10(Codigo.cantSimbolos);
+            informaciones[i++] = Math.log10(1 / probabilidad) / Math.log10(MetodosCodigoShannon.cantSimbolos);
         }
 
         return informaciones;
@@ -67,20 +57,20 @@ public class Codigo {
         return longMedia;
     }
 
-    public static int getCantPalabras() {
-        return cantPalabras;
-    }
+    public static double getTasaCompresion(){
 
-    public static void setCantPalabras(int cantPalabras) {
-        Codigo.cantPalabras = cantPalabras;
-    }
+        File fileOriginal = new File("DatosTP2.txt");
+        double tamOriginal = fileOriginal.length();
 
-    public static int getCantSimbolos() {
-        return cantSimbolos;
+        File fileShannon = new File("resultados/primera-parte/compresion.fan");
+        double tamShannon = fileShannon.length();
+
+        return tamOriginal / tamShannon;
+
     }
 
     public static void setCantSimbolos(int cantSimbolos) {
-        Codigo.cantSimbolos = cantSimbolos;
+        MetodosCodigoShannon.cantSimbolos = cantSimbolos;
     }
 }
 
