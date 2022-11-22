@@ -49,7 +49,7 @@ public class Huffman {
             while(in.hasNext()) {
                 String word = in.next();
                 code.append(huffmanCodes.get(word));
-                System.out.println(word + " -> " +huffmanCodes.get(word));
+                //System.out.println(word + " -> " +huffmanCodes.get(word));
             }
             in.close();
 

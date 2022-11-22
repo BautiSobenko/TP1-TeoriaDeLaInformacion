@@ -8,23 +8,6 @@ import static java.lang.Math.log;
 
 public class Parte2 {
 
-    public static void main(String[] args) {
-
-        FileWriter fichero = null;
-        try {
-            fichero = new FileWriter("./resultados/segunda-parte/canales.txt");
-            PrintWriter pw = new PrintWriter(fichero);
-
-            ejecutaCanalUno(pw);
-            ejecutaCanalDos(pw);
-            ejecutaCanalTres(pw);
-
-            pw.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
         public static void cargaDatosCanalUno(double[] A, double[][] matrizSaliendoai){
 
             A[0]=0.2;

@@ -75,9 +75,6 @@ public class MetodosCodigoHuffman {
         File fileHuffman = new File("resultados/primera-parte/compresion.huf");
         double tamHuffman = fileHuffman.length();
 
-        System.out.println("Original" +tamOriginal);
-        System.out.println(tamHuffman);
-
         return tamOriginal / tamHuffman;
 
     }

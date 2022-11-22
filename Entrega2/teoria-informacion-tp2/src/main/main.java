@@ -1,4 +1,4 @@
-package parte1;
+package main;
 
 import parte1.huffman.MetodosCodigoHuffman;
 import parte1.huffman.Huffman;
@@ -10,7 +10,9 @@ import parte1.utils.Escritura;
 import java.io.*;
 import java.util.*;
 
-public class Parte1 {
+import static parte2.Parte2.*;
+
+public class main {
 
     public static void main(String[] args) {
 
@@ -68,7 +70,20 @@ public class Parte1 {
         shannonFano.setLongMedia();
         Escritura.resultadosParte1Shannon(shannonFano, Probabilidad.getCantSimbolos(), Probabilidad.getLongMaxPalFuente(), shannonFano.longMaxPalCodigo(), MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
 
+        FileWriter fichero = null;
+        try {
+            fichero = new FileWriter("./resultados/segunda-parte/canales.txt");
+            PrintWriter pw = new PrintWriter(fichero);
 
+            ejecutaCanalUno(pw);
+            ejecutaCanalDos(pw);
+            ejecutaCanalTres(pw);
+
+            pw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
