@@ -1,0 +1,6 @@
+Tasa compresion: 1,7930 
+Rendimiento: 0,9915 
+Redundancia: 0,0085 
+Cantidad de simbolos: 68
+Longitud maxima de palabra fuente: 17
+Longitud maxima de palabra codigo: 14
