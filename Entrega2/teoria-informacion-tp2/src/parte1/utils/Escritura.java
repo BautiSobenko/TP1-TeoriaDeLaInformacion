@@ -4,10 +4,10 @@ import parte1.huffman.Huffman;
 import parte1.huffman.MetodosCodigoHuffman;
 import parte1.shannonFano.MetodosCodigoShannon;
 import parte1.shannonFano.ShannonFano;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Escritura {
@@ -29,20 +29,11 @@ public class Escritura {
 
             pw.close();
 
-            fichero = new FileWriter("./resultados/primera-parte/compresion.huf");
-            pw = new PrintWriter(fichero);
+            RandomAccessFile fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "r");
 
             //Escritura de tabla de codificacion en archivo binario
 
             Map<String, String> tablaCodigo = huffman.getHuffmanCodes();
-
-            short codigo;
-            int palabra;
-
-            for (Map.Entry<String, String> entry : tablaCodigo.entrySet()) {
-
-                palabra = 0b0;
-                String palabraTabla = entry.getKey();
 
                 /*
                 Tabla de decodificacion compuesta por:
@@ -50,26 +41,35 @@ public class Escritura {
                     Longitud de bytes a leer ( 1 byte = Numero al multiplicar: 2 (tam char)  * long pal )
                     Palabra ( 2 bytes (char)  * long pal ) -> Alojada en forma dinamica
                  */
-                for (int i = 0; i < palabraTabla.length() ; i++) {
-                    if (palabraTabla.charAt(i) == '1') {
-                        palabra |= (0b1 << (32 - i));
-                    }
-                }
 
-                pw.write(palabraTabla);
-                System.out.println(palabra);
+            int pos = 0;
+
+            fileHuf.seek(pos);
+            fileHuf.writeInt(cantSimbolos);
+            pos += 4;
+
+            fileHuf.seek(pos);
+            fileHuf.writeInt(longMaxPalCodigo);
+            pos += 4;
+
+            fileHuf.seek(pos);
+            fileHuf.writeInt(longMaxPalFuente);
+            pos += 4;
 
 
-                codigo = 0b0;
+            for (Map.Entry<String, String> entry : tablaCodigo.entrySet()) {
+
                 String codigoTabla = entry.getValue();
 
-                for (int i = 0; i < codigoTabla.length(); i++) {
-                    if (codigoTabla.charAt(i) == '1') {
-                        codigo |= (0b1 << (15 - i));
-                    }
-                }
+                fileHuf.seek(pos);
+                fileHuf.writeUTF(codigoTabla);
+                pos += 2 * longMaxPalCodigo;
 
-                pw.write(codigo);
+                String palabraTabla = entry.getKey();
+
+                fileHuf.seek(pos);
+                fileHuf.writeUTF(palabraTabla);
+                pos += 2 * longMaxPalFuente;
 
             }
 
@@ -107,6 +107,64 @@ public class Escritura {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void decodificacionHuffman()  {
+
+        RandomAccessFile fileHuf = null;
+        try {
+            fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "r");
+
+            Map<String, String> tablaCodigo = new HashMap<>();
+
+            int pos = 0;
+
+            fileHuf.seek(pos);
+            int cantSimbolos = fileHuf.readInt();
+            pos += 4;
+
+            fileHuf.seek(pos);
+            int longMaxPalCodigo = fileHuf.readInt();
+            pos += 4;
+
+            fileHuf.seek(pos);
+            int longMaxPalFuente = fileHuf.readInt();
+            pos += 4;
+
+
+            for (int i = 0 ; i < cantSimbolos ; i++) {
+
+                fileHuf.seek(pos);
+                String codigoTabla = fileHuf.readUTF();
+                pos += 2 * longMaxPalCodigo;
+
+                fileHuf.seek(pos);
+                String palabraTabla = fileHuf.readUTF();
+                pos += 2 * longMaxPalFuente;
+
+                tablaCodigo.put( palabraTabla, codigoTabla );
+
+            }
+
+            char bytes = fileHuf.readChar();
+            StringBuilder codigo = new StringBuilder();
+            for( int i = 0 ; i < 16 ; i++ ){
+                if( bytes >> ( 15 - i ) == 0b1 ){
+                    codigo.append("1");
+                }else{
+                    codigo.append("0");
+                }
+                //Busco en diccionario el string
+            }
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     public static void resultadosParte1Shannon(ShannonFano shannonFano,int cantSimbolos, int longMaxPalFuente, int longMaxPalCodigo, double tasaCompresion, double rendimiento, double redundancia ){
