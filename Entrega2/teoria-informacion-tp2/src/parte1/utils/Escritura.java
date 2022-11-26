@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Escritura {
 
@@ -33,45 +34,61 @@ public class Escritura {
 
             //Escritura de tabla de codificacion en archivo binario
 
-            StringBuilder tablaCod = huffman.tablaCodificacion();
+            Map<String, String> tablaCodigo = huffman.getHuffmanCodes();
 
-            byte data;
-            int limite;
+            short codigo;
+            int palabra;
 
-            for (int i = 0; i < tablaCod.length(); i++) {
-                if (i + 8 <= tablaCod.length())
-                    limite = 8;
-                else
-                    limite = tablaCod.length() - i;
+            for (Map.Entry<String, String> entry : tablaCodigo.entrySet()) {
 
-                data = 0b00000000;
-                //Lectura del octeto o lo que quede del octeto (codigo.length - i)
-                for (int j = 0; j < limite; j++) {
-                    if (tablaCod.charAt(i) == '1') {
-                        data |= (0b00000001 << (7 - j));
+                palabra = 0b0;
+                String palabraTabla = entry.getKey();
+
+                /*
+                Tabla de decodificacion compuesta por:
+                    Codigo (2 bytes)
+                    Longitud de bytes a leer ( 1 byte = Numero al multiplicar: 2 (tam char)  * long pal )
+                    Palabra ( 2 bytes (char)  * long pal ) -> Alojada en forma dinamica
+                 */
+                for (int i = 0; i < palabraTabla.length() ; i++) {
+                    if (palabraTabla.charAt(i) == '1') {
+                        palabra |= (0b1 << (32 - i));
                     }
-                    i++;
                 }
-                i--; //Con el i++ de la ultima iteracion del for del octeto me salteo una posicion de i
 
-                //Print en file binario del octeto
-                pw.write(data);
+                pw.write(palabraTabla);
+                System.out.println(palabra);
+
+
+                codigo = 0b0;
+                String codigoTabla = entry.getValue();
+
+                for (int i = 0; i < codigoTabla.length(); i++) {
+                    if (codigoTabla.charAt(i) == '1') {
+                        codigo |= (0b1 << (15 - i));
+                    }
+                }
+
+                pw.write(codigo);
+
             }
 
             //Escritura de codificacion del archivo original en archivo binario
 
-            String codigo = huffman.getCodigo();
+            String codigoHuf = huffman.getCodigo();
 
-            for (int i = 0; i < codigo.length(); i++) {
-                if (i + 8 <= codigo.length())
+            int limite;
+
+            for (int i = 0; i < codigoHuf.length(); i++) {
+                if (i + 8 <= codigoHuf.length())
                     limite = 8;
                 else
-                    limite = codigo.length() - i;
+                    limite = codigoHuf.length() - i;
 
-                data = 0b00000000;
+                byte data = 0b00000000;
                 //Lectura del octeto o lo que quede del octeto (codigo.length - i)
                 for (int j = 0; j < limite; j++) {
-                    if (codigo.charAt(i) == '1') {
+                    if (codigoHuf.charAt(i) == '1') {
                         data |= (0b00000001 << (7 - j));
                     }
                     i++;

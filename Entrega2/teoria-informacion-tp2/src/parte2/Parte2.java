@@ -1,7 +1,5 @@
 package parte2;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import static java.lang.Math.log;
