@@ -29,7 +29,7 @@ public class Escritura {
 
             pw.close();
 
-            RandomAccessFile fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "r");
+            RandomAccessFile fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "rw");
 
             //Escritura de tabla de codificacion en archivo binario
 
@@ -96,11 +96,15 @@ public class Escritura {
                 i--; //Con el i++ de la ultima iteracion del for del octeto me salteo una posicion de i
 
                 //Print en file binario del octeto
-                pw.write(data);
+                fileHuf.seek(pos);
+                String binary = toBinary(data, 8);
+                System.out.println(binary);
+                fileHuf.writeByte(data);
+                pos += 1;
 
             }
 
-            pw.close();
+            fileHuf.close();
 
             Escritura.palabrasCodigoHuffman(huffman);
 
@@ -109,11 +113,28 @@ public class Escritura {
         }
     }
 
+    public static String toBinary(byte n, int len)
+    {
+        String binary = "";
+        for (long i = (1L << len - 1); i > 0; i = i / 2) {
+            binary += (n & i) != 0 ? "1" : "0";
+        }
+        return binary;
+    }
+    public static String toBinary(char n, int len)
+    {
+        String binary = "";
+        for (long i = (1L << len - 1); i > 0; i = i / 2) {
+            binary += (n & i) != 0 ? "1" : "0";
+        }
+        return binary;
+    }
+
     public static void decodificacionHuffman()  {
 
         RandomAccessFile fileHuf = null;
         try {
-            fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "r");
+            fileHuf = new RandomAccessFile("./resultados/primera-parte/compresion.huf", "rw");
 
             Map<String, String> tablaCodigo = new HashMap<>();
 
@@ -121,14 +142,17 @@ public class Escritura {
 
             fileHuf.seek(pos);
             int cantSimbolos = fileHuf.readInt();
+            System.out.println(cantSimbolos);
             pos += 4;
 
             fileHuf.seek(pos);
             int longMaxPalCodigo = fileHuf.readInt();
+            System.out.println(longMaxPalCodigo);
             pos += 4;
 
             fileHuf.seek(pos);
             int longMaxPalFuente = fileHuf.readInt();
+            System.out.println(longMaxPalFuente);
             pos += 4;
 
 
@@ -142,26 +166,63 @@ public class Escritura {
                 String palabraTabla = fileHuf.readUTF();
                 pos += 2 * longMaxPalFuente;
 
-                tablaCodigo.put( palabraTabla, codigoTabla );
+                System.out.println(i + " = " + palabraTabla +" => " + codigoTabla);
+                tablaCodigo.put(palabraTabla, codigoTabla);
 
             }
 
-            char bytes = fileHuf.readChar();
-            StringBuilder codigo = new StringBuilder();
-            for( int i = 0 ; i < 16 ; i++ ){
-                if( bytes >> ( 15 - i ) == 0b1 ){
-                    codigo.append("1");
-                }else{
-                    codigo.append("0");
+
+            FileWriter decod = new FileWriter("./resultados/primera-parte/descompresion-huffman.txt");
+            PrintWriter pw = new PrintWriter(decod);
+
+            System.out.println("Seek: " + pos + " | FileSize: " + fileHuf.length());
+
+            ArrayList<Character> bytes = new ArrayList<>();
+            while( true ) {
+
+                try {
+                    fileHuf.seek(pos);
+                    bytes.add(fileHuf.readChar());
+                    pos += 1;
+
+                } catch (IOException e) {
+                    break;
                 }
-                //Busco en diccionario el string
             }
 
+            StringBuilder bytesStr = new StringBuilder();
+            for( int i = 0; i < bytes.size() ; i++){
+                System.out.println("BYTES: " + toBinary(bytes.get(i),16));
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+                for (int j = 0; j < 16; j++) {
+                    if (((bytes.get(i) >> (15 - j)) & 0x1) == 1) {
+                        bytesStr.append("1");
+                    } else {
+                        bytesStr.append("0");
+                    }
+                }
+            }
+
+            System.out.println("Codigo => " + bytesStr);
+
+            String codigoStr = bytesStr.toString();
+
+            while( codigoStr.length() != 0 ){
+
+                for (Map.Entry<String, String> entry : tablaCodigo.entrySet()) {
+                    String codigoTabla = entry.getValue();
+
+                    if( codigoStr.startsWith(codigoTabla) ){
+                        pw.printf( entry.getKey() + " ");
+                        codigoStr = codigoStr.substring(codigoTabla.length());
+                        break;
+                    }
+                }
+
+            }
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+                throw new RuntimeException(e);
         }
 
 

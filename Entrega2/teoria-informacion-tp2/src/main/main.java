@@ -58,7 +58,9 @@ public class main {
         double redundancia = MetodosCodigoHuffman.redundancia(rendimiento);
 
 
-        Escritura.resultadoParte1Huffman(huffman,cantSimbolos, longMaxPalFuente, huffman.longMaxPalabraCod(), MetodosCodigoHuffman.getTasaCompresion() , rendimiento, redundancia);
+        Escritura.resultadoParte1Huffman(huffman, huffman.getHuffmanCodes().size() , longMaxPalFuente, huffman.longMaxPalabraCod(), MetodosCodigoHuffman.getTasaCompresion() , rendimiento, redundancia);
+        Escritura.decodificacionHuffman();
+
 
         ShannonFano shannonFano = new ShannonFano();
         shannonFano.crearArbol(shannonFano.getCaracteres2() , shannonFano.getArbol().getRaiz());
