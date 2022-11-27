@@ -194,6 +194,14 @@ public class ShannonFano {
         return tabla;
     }
 
+    public Map<String, String> getCodigoShannon(){
+        Map<String, String> codigo = new HashMap<>();
+        for( int i = 0 ; i < this.getCaracteres2().size() ; i++){
+            codigo.put( this.getCaracteres2().get(i), this.codigos[i] );
+        }
+        return codigo;
+    }
+
     public String[] getCodigos() {
         return codigos;
     }

@@ -70,7 +70,9 @@ public class main {
         shannonFano.setProbabilidades();
         shannonFano.setEntropia();
         shannonFano.setLongMedia();
-        Escritura.resultadosParte1Shannon(shannonFano, Probabilidad.getCantSimbolos(), Probabilidad.getLongMaxPalFuente(), shannonFano.longMaxPalCodigo(), MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
+
+        Escritura.resultadosParte1Shannon(shannonFano, shannonFano.getCodigoShannon().size() , Probabilidad.getLongMaxPalFuente(), shannonFano.longMaxPalCodigo(), MetodosCodigoShannon.getTasaCompresion() , shannonFano.getRendimiento(), shannonFano.getRedundancia());
+        Escritura.decodificacionShannon();
 
         FileWriter fichero = null;
         try {
